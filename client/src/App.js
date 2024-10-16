@@ -7,7 +7,7 @@ function App() {
 
   const handleSubmit = async () => {
     try {
-      const response = await axios.post("http://localhost:5000/add-data", {
+      const response = await axios.post("https://junk-management-solution-server.vercel.app/add-data", {
         collection: "users",
         docData: data,
       });

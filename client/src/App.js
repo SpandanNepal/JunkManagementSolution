@@ -1,21 +1,36 @@
-import './App.css';
-import React from 'react'; 
-import CustomerHomepage from './pages/CustomerHomepage';
-
-// eslint-disable-next-line react-hooks/rules-of-hooks
-
-// const handleClick = () => {
-//     setShowCustomer();
-// };
+// src/App.js
+import axios from "axios";
+import { useState } from "react";
 
 function App() {
+  const [data, setData] = useState({ name: "", age: "" });
+
+  const handleSubmit = async () => {
+    try {
+      const response = await axios.post("https://junk-management-solution-server.vercel.app/add-data", {
+        collection: "users",
+        docData: data,
+      });
+    } catch (error) {
+      console.error(error);
+    }
+  };
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <div>
-            {<CustomerHomepage />}
-        </div>
-      </header>
+    <div>
+      <input
+        type="text"
+        value={data.name}
+        onChange={(e) => setData({ ...data, name: e.target.value })}
+        placeholder="Name"
+      />
+      <input
+        type="text"
+        value={data.age}
+        onChange={(e) => setData({ ...data, age: e.target.value })}
+        placeholder="Age"
+      />
+      <button onClick={handleSubmit}>Submit</button>
     </div>
   );
 }

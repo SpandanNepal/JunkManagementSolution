@@ -1,16 +1,22 @@
-// CustomerHomepage.jsx
 import React, { useState } from 'react';
 import AddressSearchBar from './AddressSearchBar';
 import Header from './Header';
 import Menu from './Menu';
 import '../../src/index.css';
 
-const CustomerHomepage = () => {
-    const [menuOpen, setMenuOpen] = useState(false);
+export interface CustomerHomepageProps {
+}
+
+const CustomerHomepage: React.FC<CustomerHomepageProps> = () => {
+    const [menuOpen, setMenuOpen] = useState<boolean>(false);
 
     const toggleMenu = () => {
-        console.log("Menu toggled!"); // Ensure this logs
+        console.log("Menu toggled!");
         setMenuOpen(prev => !prev);
+    };
+
+    const handleAddressSearch = (address: string) => {
+        console.log('Searching for address:', address);
     };
 
     return (
@@ -25,11 +31,11 @@ const CustomerHomepage = () => {
             }}
         >
             <Header toggleMenu={toggleMenu} />
-            <Menu isOpen={true} />
+            <Menu isOpen={menuOpen} />
             <div className="flex items-center justify-center h-full">
                 <div className="absolute inset-0 bg-black bg-opacity-50"></div>
                 <div className="relative z-10">
-                    <AddressSearchBar />
+                    <AddressSearchBar onSearch={handleAddressSearch} />
                 </div>
             </div>
         </div>

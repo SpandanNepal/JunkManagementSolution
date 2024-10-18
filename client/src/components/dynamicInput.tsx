@@ -1,10 +1,16 @@
 import React, { useState } from 'react';
 import { clsxm } from '../utils/clsx';
 
-const DynamicInput = ({ label, className, variant = 'big' }) => {
-  const [inputs, setInputs] = useState(['']); 
+export interface DynamicInputProps {
+  label: string;
+  className?: string;
+  variant?: 'big' | 'small';
+}
 
-  const handleInputChange = (index, value) => {
+const DynamicInput: React.FC<DynamicInputProps> = ({ label, className, variant = 'big' }) => {
+  const [inputs, setInputs] = useState<string[]>(['']); 
+
+  const handleInputChange = (index: number, value: string) => {
     const newInputs = [...inputs];
     newInputs[index] = value;
     setInputs(newInputs);
@@ -14,7 +20,7 @@ const DynamicInput = ({ label, className, variant = 'big' }) => {
     setInputs([...inputs, '']); 
   };
 
-  const removeInput = (index) => {
+  const removeInput = (index: number) => {
     if (inputs.length > 1) { 
       const newInputs = inputs.filter((_, i) => i !== index);
       setInputs(newInputs);

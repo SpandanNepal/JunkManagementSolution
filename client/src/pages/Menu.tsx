@@ -1,8 +1,11 @@
-// Menu.jsx
 import React from 'react';
 import { FaHome, FaUser, FaCog } from 'react-icons/fa';
 
-const Menu = ({ isOpen }) => {
+export interface MenuProps {
+    isOpen: boolean;
+}
+
+const Menu: React.FC<MenuProps> = ({ isOpen }) => {
     return (
         <div
             className={`absolute top-16 left-0 w-48 bg-white bg-opacity-80 shadow-lg transition-transform transform ${

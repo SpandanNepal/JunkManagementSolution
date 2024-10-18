@@ -1,7 +1,13 @@
 import React from 'react';
-import { clsxm } from '../utils/clsx';
+import { clsxm } from '../utils/clsx'
 
-const Button = ({ children, className, variant = 'mainGreen', ...rest }) => {
+export interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
+  children: React.ReactNode;
+  className?: string;
+  variant?: 'mainGreen' | 'mainBlue' | 'borderMainBlue';
+}
+
+const Button: React.FC<ButtonProps> = ({ children, className, variant = 'mainGreen', ...rest }) => {
   return (
     <button
       className={clsxm(

@@ -1,9 +1,16 @@
-// src/App.js
+import './App.css';
+import './index.css';
+import './output.css';
 import axios from "axios";
 import { useState } from "react";
 
+interface UserData {
+  name: string;
+  age: string;
+}
+
 function App() {
-  const [data, setData] = useState({ name: "", age: "" });
+  const [data, setData] = useState<UserData>({ name: "", age: "" });
 
   const handleSubmit = async () => {
     try {
@@ -11,6 +18,7 @@ function App() {
         collection: "users",
         docData: data,
       });
+      console.log(response.data);
     } catch (error) {
       console.error(error);
     }

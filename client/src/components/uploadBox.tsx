@@ -1,21 +1,21 @@
-import React, { useState } from 'react';
-import { clsxm } from '../utils/clsx'; // Assuming you are using clsxm for class handling
+import React, { useState, ChangeEvent, DragEvent } from 'react';
+import { clsxm } from '../utils/clsx';
 
-const UploadComponent = () => {
-  const [files, setFiles] = useState([]);
+const UploadBox: React.FC = () => {
+  const [files, setFiles] = useState<File[]>([]);
   
-  const handleFileUpload = (e) => {
-    const uploadedFiles = Array.from(e.target.files);
-    setFiles([...files, ...uploadedFiles]);
+  const handleFileUpload = (e: ChangeEvent<HTMLInputElement>) => {
+    const uploadedFiles = Array.from(e.target.files || []);
+    setFiles((prevFiles) => [...prevFiles, ...uploadedFiles]);
   };
 
-  const handleDrop = (e) => {
+  const handleDrop = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault();
     const droppedFiles = Array.from(e.dataTransfer.files);
-    setFiles([...files, ...droppedFiles]);
+    setFiles((prevFiles) => [...prevFiles, ...droppedFiles]);
   };
 
-  const handleDragOver = (e) => {
+  const handleDragOver = (e: DragEvent<HTMLDivElement>) => {
     e.preventDefault(); // Prevent the default browser behavior when dragging over the element
   };
 
@@ -74,4 +74,4 @@ const UploadComponent = () => {
   );
 };
 
-export default UploadComponent;
+export default UploadBox;

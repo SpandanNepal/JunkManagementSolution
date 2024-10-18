@@ -1,12 +1,16 @@
-import React, { useState } from 'react';
+import React, { useState, FormEvent } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
 
-const AddressSearchBar = () => {
-    const [address, setAddress] = useState('');
+export interface AddressSearchBarProps {
+    onSearch: (address: string) => void;
+}
 
-    const handleSubmit = (e) => {
+const AddressSearchBar: React.FC<AddressSearchBarProps> = ({ onSearch }) => {
+    const [address, setAddress] = useState<string>('');
+
+    const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log('Searching for address:', address);
+        onSearch(address);
     };
 
     return (

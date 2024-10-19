@@ -1,64 +1,63 @@
 import React, { useState } from 'react';
-import { clsxm } from '../utils/clsx';
 
-export interface DynamicInputProps {
+interface DynamicInputProps {
   label: string;
-  className?: string;
-  variant?: 'big' | 'small';
+  placeholder?: string; 
+  variant?: string;
+  value: string[];
+  onChange: (value: string[]) => void;
 }
 
-const DynamicInput: React.FC<DynamicInputProps> = ({ label, className, variant = 'big' }) => {
-  const [inputs, setInputs] = useState<string[]>(['']); 
+const DynamicInput: React.FC<DynamicInputProps> = ({
+  label,
+  placeholder = '',
+  variant = '',
+  value,
+  onChange,
+}) => {
+  const [inputValue, setInputValue] = useState<string>('');
 
-  const handleInputChange = (index: number, value: string) => {
-    const newInputs = [...inputs];
-    newInputs[index] = value;
-    setInputs(newInputs);
-  };
-
-  const addInput = () => {
-    setInputs([...inputs, '']); 
-  };
-
-  const removeInput = (index: number) => {
-    if (inputs.length > 1) { 
-      const newInputs = inputs.filter((_, i) => i !== index);
-      setInputs(newInputs);
+  const handleAddService = () => {
+    if (inputValue.trim()) {
+      onChange([...value, inputValue]);
+      setInputValue(''); 
     }
   };
 
+  const handleRemoveService = (index: number) => {
+    const updatedServices = value.filter((_, i) => i !== index);
+    onChange(updatedServices);
+  };
+
   return (
-    <div className="flex flex-col">
-      <label className="mb-1 text-gray-600">{label}</label>
-      {inputs.map((inputValue, index) => (
-        <div key={index} className="flex items-center mb-2">
-          <input
-            className={clsxm(
-              variant === 'big' ? 'w-[350px] border-2 rounded-sm px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500' :
-              'w-[170px] border-2 rounded-sm px-2 py-1 focus:outline-none focus:ring-2 focus:ring-blue-500',
-              className // Include any additional classes passed in
-            )}
-            type="text"
-            value={inputValue}
-            placeholder={`Enter ${label.toLowerCase()}`}
-            onChange={(e) => handleInputChange(index, e.target.value)}
-          />
-          {inputValue && (
-            <span
-              onClick={() => removeInput(index)}
-              className="ml-2 text-red-500 cursor-pointer"
+    <div className={`flex flex-col ${variant}`}>
+      <label className="mb-2 font-medium">{label}</label>
+      <div className="flex space-x-2">
+        <input
+          type="text"
+          className="border p-2 rounded"
+          placeholder={placeholder}
+          value={inputValue}
+          onChange={(e) => setInputValue(e.target.value)}
+        />
+        <button type="button" onClick={handleAddService} className="p-2 bg-blue-500 text-white rounded">
+          Add
+        </button>
+      </div>
+      <ul className="mt-2">
+        {value.map((service, index) => (
+          <li key={index} className="flex justify-between items-center">
+            {service}
+            <button
+              type="button"
+              onClick={() => handleRemoveService(index)}
+              className="text-red-500 p-1"
             >
-              &times; {/* Cross sign to delete the input */}
-            </span>
-          )}
-        </div>
-      ))}
-      <button
-        onClick={addInput}
-        className="mt-2 text-blue-500 hover:underline"
-      >
-        Add More +
-      </button>
+              Remove
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

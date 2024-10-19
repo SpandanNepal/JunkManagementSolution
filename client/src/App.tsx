@@ -1,44 +1,16 @@
+// src/App.tsx
+import React from 'react';
+import { BrowserRouter } from 'react-router-dom';
 import './App.css';
 import './index.css';
 import './output.css';
-import axios from "axios";
-import { useState } from "react";
+import Navigation from './Navigation';
+import CustomerHomepage from './pages/CustomerHomepage';
 
-interface UserData {
-  name: string;
-  age: string;
-}
-
-function App() {
-  const [data, setData] = useState<UserData>({ name: "", age: "" });
-
-  const handleSubmit = async () => {
-    try {
-      const response = await axios.post("https://junk-management-solution-server.vercel.app/add-data", {
-        collection: "users",
-        docData: data,
-      });
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
+const App: React.FC = () => {
   return (
     <div>
-      <input
-        type="text"
-        value={data.name}
-        onChange={(e) => setData({ ...data, name: e.target.value })}
-        placeholder="Name"
-      />
-      <input
-        type="text"
-        value={data.age}
-        onChange={(e) => setData({ ...data, age: e.target.value })}
-        placeholder="Age"
-      />
-      <button onClick={handleSubmit}>Submit</button>
+      <CustomerHomepage/>
     </div>
   );
 }

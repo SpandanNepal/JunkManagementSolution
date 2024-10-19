@@ -1,57 +1,61 @@
 import React, { forwardRef, useState, InputHTMLAttributes } from 'react';
 import { clsxm } from '../utils/clsx';
 
-interface InputProps extends InputHTMLAttributes<HTMLInputElement> {
+interface CustomInputProps extends InputHTMLAttributes<HTMLInputElement> {
   label?: string;
-  value?: string;
-  inputType?: string;
-  variant?: 'big' | 'small'; // You can extend this if you have more variants
+  value: string;
+  inputType: 'text' | 'password' | 'email' | 'number' | 'date' | 'select'; // Restrict input types
+  className?: string;
+  variant?: 'big' | 'small'; 
   errorMessage?: string;
 }
 
-const Input = forwardRef<HTMLInputElement, InputProps>(
-  ({ label, value, inputType = 'text', className, variant = 'big', errorMessage = '', ...rest }, ref) => {
+const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
+  ({ label, value, inputType, className = '', variant = 'big', errorMessage = '', ...rest }, ref) => {
     const [isInvalid, setIsInvalid] = useState(false);
 
-    // Function to validate the input and set the error state
     const handleValidation = (e: React.FocusEvent<HTMLInputElement>) => {
       const { value } = e.target;
-
-      // Simple validation for demo purposes
-      if (!value || value.trim() === '') {
-        setIsInvalid(true);
-      } else {
-        setIsInvalid(false);
-      }
-
-      // If there's an onChange event passed in, call it as well
+      setIsInvalid(!value || value.trim() === '');
       if (rest.onChange) {
         rest.onChange(e);
       }
     };
 
     return (
-      <div className="flex flex-col">
+      <div className="flex flex-col w-full">
         {label && <label className="mb-1 text-gray-600">{label}</label>} {/* Label above input */}
         <input
           ref={ref}
           className={clsxm(
-            variant === 'big' ? 'w-[350px] border-2 rounded-sm px-2 py-1 focus:outline-none focus:ring-2' : 
+            variant === 'big' ? 'w-full border-2 rounded-sm px-2 py-1 focus:outline-none focus:ring-2' : 
             'w-[170px] border-2 rounded-sm px-2 py-1 focus:outline-none focus:ring-2',
-            isInvalid ? 'border-red-500 focus:ring-red-500' : 'focus:ring-blue-500', // Validity styles
-            className // Include any additional classes passed in
+            isInvalid
+              ? 'border-red-500 focus:ring-red-500' 
+              : 'focus:ring-blue-500', 
+            className 
           )}
           type={inputType}
           value={value}
-          onBlur={handleValidation} // Validate when the input loses focus
-          {...rest} // Spread any other props (like onChange, placeholder, etc.)
+          onBlur={handleValidation} 
+          onChange={(e) => {
+            if (rest.onChange) {
+              rest.onChange(e);
+            }
+            setIsInvalid(false); 
+          }}
+          aria-invalid={isInvalid}
+          aria-describedby={isInvalid ? 'error-message' : undefined}
+          {...rest} 
         />
-        {isInvalid && <p className="mt-1 text-red-500 text-sm">{errorMessage || 'Invalid input'}</p>} {/* Error message */}
+        {isInvalid && (
+          <p id="error-message" className="mt-1 text-red-500 text-sm">{errorMessage || 'Invalid input'}</p> // Error message
+        )}
       </div>
     );
   }
 );
 
-Input.displayName = 'CustomInput';
+CustomInput.displayName = 'CustomInput';
 
-export default Input;
+export default CustomInput;

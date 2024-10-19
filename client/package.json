@@ -51,5 +51,6 @@
     "postcss-loader": "^8.1.1",
     "tailwindcss": "^3.4.14",
     "typescript": "^4.9.5"
-  }
+  },
+  "proxy": "https://proximal-api-f77eafdc5b71.herokuapp.com"
 }

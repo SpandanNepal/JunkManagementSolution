@@ -6,18 +6,18 @@ import DynamicInput from '../components/dynamicInput';
 import axios from 'axios';
 
 function VendorProfileForm() {
-  const [fullName, setFullName] = useState<string>(''); // Type for fullName
-  const [servicesProvided, setServicesProvided] = useState<string[]>(['']); // Type for dynamic input state
-  const [timeAvailability, setTimeAvailability] = useState<string>(''); // Type for time availability
-  const [profileDescription, setProfileDescription] = useState<string>(''); // Type for profile description
-  const [serviceDescription, setServiceDescription] = useState<string>(''); // Type for service description
-  const [file, setFile] = useState<File | null>(null); // Type for the uploaded file
+  const [fullName, setFullName] = useState<string>(''); 
+  const [servicesProvided, setServicesProvided] = useState<string[]>(['']); 
+  const [timeAvailability, setTimeAvailability] = useState<string>(''); 
+  const [profileDescription, setProfileDescription] = useState<string>(''); 
+  const [serviceDescription, setServiceDescription] = useState<string>(''); 
 
+  const [file, setFile] = useState<File | null>(null);
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const formData = new FormData();
     formData.append('fullName', fullName);
-    formData.append('servicesProvided', JSON.stringify(servicesProvided)); // Converting dynamic input into JSON format
+    formData.append('servicesProvided', JSON.stringify(servicesProvided)); 
     formData.append('timeAvailability', timeAvailability);
     formData.append('profileDescription', profileDescription);
     formData.append('serviceDescription', serviceDescription);
@@ -38,12 +38,11 @@ function VendorProfileForm() {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col w-screen h-screen p-4 overflow-auto">
-      <div className="bg-white shadow-md rounded-lg p-6 w-full max-w-lg">
+    <div className="flex justify-center items-center flex-col w-full h-full p-4 overflow-auto">
+      <div className="bg-white shadow-md rounded-lg p-6 w-1/2 ">
         <h1 className="text-2xl font-bold text-center mb-4">Vendor Profile</h1>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
 
-          {/* Full Name Input */}
           <CustomInput
             label="Full Name"
             inputType="text"
@@ -52,14 +51,13 @@ function VendorProfileForm() {
             onChange={(e) => setFullName(e.target.value)}
           />
 
-          {/* Horizontal Layout for Services Provided and Time Availability */}
           <div className="flex justify-between space-x-4">
             <DynamicInput
               label="Services Provided"
               placeholder="Add a service"
               variant="small"
               value={servicesProvided}
-              onChange={setServicesProvided} // Dynamic input handler
+              onChange={setServicesProvided} 
             />
             <CustomInput
               label="Time Availability"
@@ -71,7 +69,6 @@ function VendorProfileForm() {
             />
           </div>
 
-          {/* Profile Description */}
           <CustomInput
             label="Profile Description"
             inputType="text"
@@ -80,7 +77,6 @@ function VendorProfileForm() {
             onChange={(e) => setProfileDescription(e.target.value)}
           />
 
-          {/* Service Description */}
           <CustomInput
             label="Service Description"
             inputType="text"

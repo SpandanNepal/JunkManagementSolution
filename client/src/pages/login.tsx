@@ -2,26 +2,35 @@ import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom'; 
 import CustomInput from '../components/input'; 
 import Button from '../components/button'; 
+import CustomerHomepage from './CustomerHomepage';
 import axios from 'axios';
 import loginImage from '../assets/loginImage.png';
 
 function Login() {
-  const [email, setEmail] = useState<string>('');
-  const [password, setPassword] = useState<string>('');
   const [error, setError] = useState<string | null>(null); 
   const navigate = useNavigate(); 
 
+  const [data, setData] = useState({ email: "", password: "" });
+  const [loginValid, setLoginValid] = useState(false);
+
   const handleLogin = async () => {
     try {
-      const { data } = await axios.post('http://localhost:7777/api/auth/login', { email, password });
-      console.log(data);
+      const response = await axios.post("https://junk-management-solution-server.vercel.app/login", {
+        collection: "login",
+        docData: data,
+      });
+      console.log(response)
       navigate('/dashboard');
-    } catch (error: any) {
+      setLoginValid(!loginValid)
+    } catch (error) {
       setError('Invalid credentials');
-      console.log(error);
+      console.error(error);
     }
   };
 
+  if (loginValid ) {
+    return <CustomerHomepage />
+  } else {
   return (
     <div className="flex justify-center items-center flex-row w-screen h-full space-x-4 border-2 border-inherit bg-gray-100">
       <div className="flex flex-col w-[386px] justify-center bg-white shadow-lg rounded-lg p-6">
@@ -35,8 +44,8 @@ function Login() {
                 label="Email"
                 inputType="text"
                 placeholder="johndo@gmail.com"
-                value={email}
-                onChange={(e) => setEmail(e.target.value)}
+                value={data.email}
+                onChange={(e) => setData({ ...data, email: e.target.value })}
                 errorMessage={error ? "Invalid email" : ""}
               />
             </div>
@@ -44,8 +53,8 @@ function Login() {
               <CustomInput
                 label="Password"
                 inputType="password"
-                value={password}
-                onChange={(e) => setPassword(e.target.value)}
+                value={data.password}
+                onChange={(e) => setData({ ...data, password: e.target.value })}
                 errorMessage={error ? "Invalid password" : ""}
               />
               <h3 className="text-mainBlue">Forgot Password?</h3>
@@ -63,6 +72,8 @@ function Login() {
       </div>
     </div>
   );
+}
+
 }
 
 export default Login;

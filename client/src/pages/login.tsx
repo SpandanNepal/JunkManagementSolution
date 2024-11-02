@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import CustomInput from '../components/input'; 
 import Button from '../components/button'; 
 import CustomerHomepage from './CustomerHomepage';
@@ -7,6 +8,7 @@ import loginImage from '../assets/loginImage.png';
 
 function Login() {
   const [error, setError] = useState<string | null>(null); 
+  const navigate = useNavigate(); 
 
   const [data, setData] = useState({ email: "", password: "" });
   const [loginValid, setLoginValid] = useState(false);
@@ -18,6 +20,7 @@ function Login() {
         docData: data,
       });
       console.log(response)
+      navigate('/dashboard');
       setLoginValid(!loginValid)
     } catch (error) {
       setError('Invalid credentials');
@@ -29,7 +32,7 @@ function Login() {
     return <CustomerHomepage />
   } else {
   return (
-    <div className="flex justify-center items-center flex-row w-screen h-screen space-x-4 border-2 border-inherit bg-gray-100">
+    <div className="flex justify-center items-center flex-row w-screen h-full space-x-4 border-2 border-inherit bg-gray-100">
       <div className="flex flex-col w-[386px] justify-center bg-white shadow-lg rounded-lg p-6">
         <div className="flex flex-col w-full justify-center items-start">
           <h1 className="font-semibold text-[18px] mt-6 text-gray-800">Welcome back!</h1>
@@ -64,8 +67,8 @@ function Login() {
         </div>
       </div>
 
-      <div className="w-1/3 p-16 flex justify-center items-center">
-        <img src={loginImage}  className="md:w-[300px] h-[300px]" alt="Login" />
+      <div className="w-1/2 p-16 flex justify-center items-center">
+        <img src={loginImage}  className="w-[200px] h-[200px]" alt="Login" />
       </div>
     </div>
   );

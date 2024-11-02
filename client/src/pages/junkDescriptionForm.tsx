@@ -43,8 +43,8 @@ const JunkDescriptionForm: React.FC = () => {
   };
 
   return (
-    <div className="flex justify-center items-center flex-col w-screen h-screen p-4 overflow-auto">
-      <div className="bg-white shadow-md rounded-lg p-6 w-[600px]">
+    <div className="flex justify-center items-center flex-col w-screen h-full p-4 overflow-auto">
+      <div className="bg-white shadow-md rounded-lg p-6 w-1/2">
         <h1 className="text-2xl font-bold text-center mb-4">Junk Description Form</h1>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
           <CustomInput

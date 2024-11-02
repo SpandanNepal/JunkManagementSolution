@@ -2,6 +2,8 @@ import { useState } from 'react';
 import CustomInput from '../components/input'; 
 import Button from '../components/button'; 
 import axios from 'axios';
+import registrationImage from '../assets/registration.png';
+
 
 function SignUp() {
   const [fullName, setFullName] = useState<string>(''); 
@@ -41,8 +43,8 @@ function SignUp() {
   };
 
   return (
-    <div className="flex justify-center items-center flex-row w-screen h-screen space-x-4 border-2 border-inherit">
-      <div className="flex flex-col w-[386px] justify-center">
+    <div className="flex justify-center items-center flex-row w-full h-full space-x-4 border-2 border-inherit">
+      <div className="flex flex-col w-1/2 justify-center">
         <div className="flex flex-col p-4 w-full justify-center items-start">
           <h1 className="font-semibold text-[18px] mt-4 text-mainblack">Create an account</h1>
 
@@ -143,8 +145,8 @@ function SignUp() {
         </div>
       </div>
 
-      <div className="w-1/3 p-16 flex justify-center items-center">
-        <img src={require('../assets/registration.png')} className="md:w-[400px] h-[400px]" alt="Sign Up" />
+      <div className="w-1/2 p-16 flex justify-center items-center">
+        <img src={registrationImage} className="md:w-[400px] h-[400px]" alt="Sign Up" />
       </div>
     </div>
   );

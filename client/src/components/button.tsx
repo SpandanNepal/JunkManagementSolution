@@ -4,7 +4,7 @@ import { clsxm } from '../utils/clsx';
 interface ButtonProps extends ButtonHTMLAttributes<HTMLButtonElement> {
   children: ReactNode;
   className?: string;
-  variant?: 'mainGreen' | 'mainBlue' | 'borderMainBlue';
+  variant?: 'mainBlue' | 'borderMainBlue';
 }
 
 const Button: React.FC<ButtonProps> = ({ children, className = '', variant = 'mainGreen', ...rest }) => {

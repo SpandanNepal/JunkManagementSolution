@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { FaBars, FaBell, FaCog, FaHome, FaSignInAlt, FaSignOutAlt, FaTruck, FaUser, FaUserCog, FaQuestionCircle } from 'react-icons/fa';
+import { FaBars, FaBell, FaCog, FaHome, FaSignOutAlt, FaTruck, FaQuestionCircle } from 'react-icons/fa';
 
 const Header: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => {
     const [menuOpen, setMenuOpen] = useState(false);
@@ -9,6 +9,7 @@ const Header: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => {
     };
 
     return (
+        <div className="py-6" style={{ paddingLeft: '2rem', paddingRight: '12rem' }}>
         <div className="flex items-center justify-between bg-white bg-opacity-90 relative px-6 py-2"> {/* Use px-18 */}
             {/* Left Side */}
             <div className="flex items-center">
@@ -21,9 +22,9 @@ const Header: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => {
                 {isLoggedIn && (
                     <>
                         <button className="relative focus:outline-none">
-                            <FaBell className="text-red-500 text-2xl" />
-                            <span className="absolute top-0 right-0 bg-red-500 text-[#0058DC] text-xs rounded-full px-1">3</span>
-                        </button>
+    <span className="absolute top-1 left-1 bg-red-500 text-[#0058DC] text-xs rounded-full px-2 py-0.5">3</span>
+    <FaBell className="text-red-500 text-2xl" />
+</button>
                         <button onClick={toggleMenu} className="text-black relative">
                             <FaBars className="text-2xl ml-2" />
                         </button>
@@ -53,6 +54,7 @@ const Header: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => {
                     </div>
                 )}
             </div>
+        </div>
         </div>
     );
 };

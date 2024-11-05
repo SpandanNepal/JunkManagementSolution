@@ -4,7 +4,8 @@ import { SiX } from 'react-icons/si';
 
 const Footer: React.FC = () => {
     return (
-        <footer className="bg-gray-100 text-center py-6">
+        <div className="py-6" style={{ paddingTop: '16rem' }}>
+        <footer className="bg-gray-100 text-center py-24 mt-12"> {/* Add top margin (mt-12) and padding (py-6) */}
             <p className="text-gray-600">&copy; 2024 JUNKger. All rights reserved.</p>
             <p className="text-gray-600">Connect with us:</p>
             <ul className="flex justify-center space-x-4">
@@ -35,7 +36,7 @@ const Footer: React.FC = () => {
                         rel="noopener noreferrer" 
                         className="text-gray-600 hover:text-pink-500"
                     >
-                        <FaInstagram className="inline-block text-pink-500" size={30}/>
+                        <FaInstagram className="inline-block text-pink-500" size={30} />
                     </a>
                 </li>
             </ul>
@@ -48,6 +49,7 @@ const Footer: React.FC = () => {
                 Phone: (123) 456-7890
             </p>
         </footer>
+        </div>
     );
 };
 

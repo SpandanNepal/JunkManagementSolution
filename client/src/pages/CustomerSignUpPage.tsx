@@ -1,17 +1,25 @@
-import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import SignUpForm from '../components/SignUpForm';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
+import { auth } from '../firebase';
 
 function CustomerSignUp() {
-  const navigate = useNavigate();
-
+  const navigate = useNavigate()
   const handleCustomerSignup = async (formData: any) => {
     try {
-      const response = await axios.post('http://localhost:7777/api/customer/signup', formData);
-      console.log('Customer registered:', response.data);
-      navigate('/junkdescriptionform'); // Navigate to customer-specific page
+      const userCredential = await createUserWithEmailAndPassword(auth, formData.email, formData.password);
+      const user = userCredential.user;
+      // Update user profile with full name
+      await updateProfile(user, { displayName: formData.fullName });
+
+      // Save additional information like phone, address in your Firestore (optional)
+      // You can add a function here to save data in Firestore if needed.
+
+      console.log('User registered:', user);
+
+      navigate('/dashboard');
     } catch (error) {
-      console.error('Customer sign-up error:', error);
+      console.log(error);
     }
   };
 

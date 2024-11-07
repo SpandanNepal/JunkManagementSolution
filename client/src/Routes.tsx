@@ -24,6 +24,7 @@ const AppRoutes: React.FC = () => {
       {shouldShowMenu && <Menu isOpen={true} />} 
     <Routes>
       <Route path="/selectuser" element={<SelectUser />} />
+      <Route path="/dashboard" element={<CustomerHomepage />} />
       <Route path="/login" element={<Login />} />
       <Route path="/vendorsignup" element={<VendorSignUp />} />
       <Route path="/customersignup" element={<CustomerSignUp />} />
@@ -32,7 +33,6 @@ const AppRoutes: React.FC = () => {
       <Route path="/customerhomepage" element={<CustomerHomepage />} />
       <Route path="/vendorsearchresult" element={<VendorSearchResults />} />
       <Route path="/customerProfile" element={<CustomerProfile />} />
-      <Route path="*" element={<Login />} />
     </Routes>
     </div>
   );

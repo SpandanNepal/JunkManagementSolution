@@ -25,7 +25,8 @@ const AppRoutes: React.FC = () => {
       {shouldShowMenu && <Menu isOpen={true} />} 
     <Routes>
       <Route path="/selectuser" element={<SelectUser />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/dashboard" element={<CustomerHomepage />} />
+      <Route path="/*" element={<Login />} />
       <Route path="/vendorsignup" element={<VendorSignUp />} />
       <Route path="/customersignup" element={<CustomerSignUp />} />
       <Route path="/junkdescriptionform" element={<JunkDescriptionForm />} />

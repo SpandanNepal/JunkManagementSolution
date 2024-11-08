@@ -12,7 +12,7 @@ if (rootElement) {
   const root = ReactDOM.createRoot(rootElement);
   root.render(
     <React.StrictMode>
-      <Header isLoggedIn={true}/>
+      <Header isLoggedIn={true} />
       <App />
       <Footer />
     </React.StrictMode>

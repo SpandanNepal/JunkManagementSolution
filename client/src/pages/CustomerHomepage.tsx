@@ -1,4 +1,3 @@
-import React from 'react';
 import AddressSearchBar from './AddressSearchBar';
 import '../../src/index.css';
 

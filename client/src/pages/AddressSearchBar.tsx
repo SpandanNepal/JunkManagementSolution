@@ -1,5 +1,6 @@
-import React, { useState, FormEvent } from 'react';
-import { FaMapMarkerAlt, FaArrowLeft, FaArrowRight } from 'react-icons/fa';
+import { useState, FormEvent } from "react";
+import { FaMapMarkerAlt, FaArrowLeft, FaArrowRight } from "react-icons/fa";
+import { useNavigate } from "react-router-dom";
 
 export interface AddressSearchBarProps {
     onSearch: (address: string, miles: string) => void;
@@ -10,10 +11,12 @@ const AddressSearchBar: React.FC<AddressSearchBarProps> = ({ onSearch }) => {
     const [miles, setMiles] = useState<string>('');
     const [vendorCount, setVendorCount] = useState<number | null>(null);
     const [loading, setLoading] = useState<boolean>(false);
+    const navigate = useNavigate();
+
 
     const handleGetStarted = () => {
-        console.log("HI")
-    };
+        navigate(`/junkdescriptionform`);
+      };
 
     const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const value = e.target.value;

@@ -1,8 +1,12 @@
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import AddressSearchBar from './AddressSearchBar';
 import '../../src/index.css';
 
 const CustomerHomepage: React.FC = () => {
+    const navigate = useNavigate()
     const handleAddressSearch = (address: string) => {
+        navigate('/vendorsearchresult');
         console.log('Searching for address:', address);
     };
 

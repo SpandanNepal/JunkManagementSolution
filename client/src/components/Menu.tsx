@@ -8,10 +8,13 @@ export interface MenuProps {
 const Menu: React.FC<MenuProps> = ({ isOpen }) => {
     return (
         <div
-            className={`absolute top-16 left-0 w-48 bg-white bg-opacity-80 shadow-lg transition-transform transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} z-50`} 
-            style={{ height: 'calc(100vh - 4rem)' }} // Makes sidebar fill space between header and footer
+            className={`absolute top-20 w-48 bg-white bg-opacity-80 transition-transform transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} z-50`} 
+            style={{
+                height: 'full', // Sidebar height
+                boxShadow: '6px 0px 10px rgba(0, 0, 0, 0.2)', // Right-only shadow
+            }}
         >
-            <ul className="flex flex-col p-4 h-full"> {/* Set the list to take full height of the sidebar */}
+            <ul className="flex flex-col p-4 h-full">
                 <li className="flex items-center py-2 text-black hover:text-[#0058DC] hover:bg-gray-200 transition-colors duration-200">
                     <FaHome className="mr-2" />
                     <a href="#home">Home</a>

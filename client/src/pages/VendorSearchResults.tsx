@@ -3,7 +3,6 @@ import Vendor from './Vendor';
 import Button from '../components/button';
 
 const vendorsData = [
-    // 10 fake vendors
     { name: 'John Doe', rating: 4, state: 'NY', zipcode: '10001', bio: 'Experienced junk removal service with over 5 years of service.' },
     { name: 'Jane Smith', rating: 5, state: 'CA', zipcode: '90001', bio: 'Fast and reliable waste management.' },
     { name: 'Sam Wilson', rating: 3, state: 'TX', zipcode: '73301', bio: 'Local junk removal service, eco-friendly options available.' },
@@ -37,37 +36,44 @@ const VendorSearchResults: React.FC = () => {
     const currentVendors = vendorsData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
 
     return (
-        <div>
-            <div className="flex flex-col min-h-screen">
-                <div className="flex-grow p-8 pl-40">
-                    <div className="flex justify-center mb-4">
-                        <Button type="button" variant="mainBlue">Filter by Rating</Button>
-                        <Button type="button" variant="mainBlue">Filter by Location</Button>
-                        <Button type="button" variant="mainBlue">Filter by Availability</Button>
+        <div className="flex flex-col items-center min-h-screen  bg-gray-50 p-6">
+            {/* Filter Buttons */}
+            <div className="flex space-x-4 mb-8">
+                <Button type="button" variant="borderMainBlue">Filter by Rating</Button>
+                <Button type="button" variant="borderMainBlue">Filter by Location</Button>
+                <Button type="button" variant="borderMainBlue">Filter by Availability</Button>
+            </div>
+            
+            {/* Vendor List */}
+            <div className="w-[1000px] space-y-4">
+                {currentVendors.map((vendor, index) => (
+                    <div className="bg-white shadow-md rounded-md p-4" key={index}>
+                        <Vendor {...vendor} customerName='blah' vendorId='123' />
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-                        {currentVendors.map((vendor, index) => (
-                            <Vendor key={index} {...vendor} customerName='blah' vendorId='123' />
-                        ))}
-                    </div>
-                    <div className="flex justify-center mt-4">
-                        <Button type="button" variant="mainBlue"
-                            className={`mr-2 ${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            onClick={() => handlePageChange(currentPage - 1)}
-                            disabled={currentPage === 1}
-                        >
-                            Previous
-                        </Button>
-                        <span className="mx-2">Page {currentPage} of {totalPages}</span>
-                        <Button type="button" variant="mainBlue"
-                            className={`${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
-                            onClick={() => handlePageChange(currentPage + 1)}
-                            disabled={currentPage === totalPages}
-                        >
-                            Next
-                        </Button>
-                    </div>
-                </div>
+                ))}
+            </div>
+
+            {/* Pagination Controls */}
+            <div className="flex items-center justify-center mt-8 space-x-4">
+                <Button
+                    type="button"
+                    variant="mainBlue"
+                    className={`${currentPage === 1 ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    onClick={() => handlePageChange(currentPage - 1)}
+                    disabled={currentPage === 1}
+                >
+                    Previous
+                </Button>
+                <span className="text-gray-600">Page {currentPage} of {totalPages}</span>
+                <Button
+                    type="button"
+                    variant="mainBlue"
+                    className={`${currentPage === totalPages ? 'opacity-50 cursor-not-allowed' : ''}`}
+                    onClick={() => handlePageChange(currentPage + 1)}
+                    disabled={currentPage === totalPages}
+                >
+                    Next
+                </Button>
             </div>
         </div>
     );

@@ -51,7 +51,7 @@ function SignUpForm({ onSubmit, buttonText }: SignUpFormProps) {
   };
 
   return (
-    <div className="flex flex-col w-full justify-center items-start" style={{ paddingLeft: '12rem', paddingRight: '20rem' }}>
+    <div className="flex flex-col w-full justify-center items-start shadow-lg p-10" style={{ paddingLeft: '12rem', paddingRight: '20rem' }}>
       <h1 className="font-semibold text-2xl text-gray-800" style={{ paddingBottom: '1rem' }}><strong>Create an account</strong></h1>
       {successMessage && (
         <p className="text-green-500 mt-2">{successMessage}</p>
@@ -67,16 +67,17 @@ function SignUpForm({ onSubmit, buttonText }: SignUpFormProps) {
         <CustomInput label="Zip Code" inputType="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
         <CustomInput label="Password" inputType="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <CustomInput label="Confirm Password" inputType="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-        <div style={{ paddingTop: '2rem' }}>
-          <Button className="w-auto h-12 mt-6" variant="mainBlue" onClick={handleSubmit}>
-            <span className="text-mainWhite">{buttonText}</span>
+        <div className="flex justify-between mt-4">
+          <Button className="w-auto" variant="mainBlue" onClick={handleSubmit}>
+            {buttonText}
           </Button>
         </div>
-        <div style={{ paddingTop: '2rem' }}>
-          <Button className="w-auto h-12 mt-6" variant="mainBlue" onClick={handleBackToLogin}>
-            <span className="text-mainWhite">Login</span>
-          </Button>
-        </div>
+        <p className="text-sm text-gray-600 mt-6">
+          Already have an account?{' '}
+          <span className="text-mainBlue cursor-pointer" onClick={handleBackToLogin}>
+            Login
+          </span>
+        </p>
       </div>
     </div>
   );

@@ -74,7 +74,7 @@ function SignUpForm({ onSubmit, buttonText }: SignUpFormProps) {
         </div>
         <div style={{ paddingTop: '2rem' }}>
           <Button className="w-auto h-12 mt-6" variant="mainBlue" onClick={handleBackToLogin}>
-            <span className="text-mainWhite">Back to Login</span>
+            <span className="text-mainWhite">Login</span>
           </Button>
         </div>
       </div>

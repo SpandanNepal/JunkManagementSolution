@@ -27,9 +27,11 @@ const VendorSearchResults: React.FC = () => {
     };
 
     const totalPages = Math.ceil(vendorsData.length / itemsPerPage);
-    
+
     const handlePageChange = (page: number) => {
-        setCurrentPage(page);
+        if (page > 0 && page <= totalPages) {
+            setCurrentPage(page);
+        }
     };
 
     const currentVendors = vendorsData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
@@ -37,7 +39,7 @@ const VendorSearchResults: React.FC = () => {
     return (
         <div>
             <div className="flex flex-col min-h-screen">
-                <div className="flex-grow p-8 pl-40"> {/* Increased left padding */}
+                <div className="flex-grow p-8 pl-40">
                     <div className="flex justify-center mb-4">
                         <Button type="button" variant="mainBlue">Filter by Rating</Button>
                         <Button type="button" variant="mainBlue">Filter by Location</Button>
@@ -45,7 +47,7 @@ const VendorSearchResults: React.FC = () => {
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
                         {currentVendors.map((vendor, index) => (
-                            <Vendor key={index} {...vendor} />
+                            <Vendor key={index} {...vendor} customerName='blah' vendorId='123' />
                         ))}
                     </div>
                     <div className="flex justify-center mt-4">

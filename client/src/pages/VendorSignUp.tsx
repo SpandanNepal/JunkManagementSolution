@@ -18,7 +18,7 @@ function VendorSignUp() {
 
       console.log('User registered:', user);
 
-      navigate('/dashboard');
+      navigate('/vendordashboard');
     } catch (error) {
       console.log(error);
     }

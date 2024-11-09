@@ -51,12 +51,9 @@ function Login() {
     }
   };
 
-  const navigateToSignUp = (userType: 'customer' | 'vendor') => {
-    if (userType === 'customer') {
-      navigate('/customersignup');
-    } else if (userType === 'vendor') {
-      navigate('/vendorsignup');
-    }
+  const navigateToSignUp = () => {
+    // Navigate to the user selection page
+    navigate('/selectuser');
   };
 
   if (loginValid) {
@@ -103,23 +100,15 @@ function Login() {
               <span className="text-mainWhite">Log in</span>
             </Button>
 
-            {/* Sign-up Options */}
+            {/* Sign-up Option */}
             <div className="text-center text-sm text-gray-600 mt-4">
               <span className="mr-2">Don’t have an account?</span>
-              <div className="inline-flex gap-4 font-medium cursor-pointer">
-                <p
-                  className="text-mainBlue border-b-2 border-transparent hover:border-mainBlue"
-                  onClick={() => navigateToSignUp('customer')}
-                >
-                  Sign up as a Customer
-                </p>
-                <p
-                  className="text-mainBlue border-b-2 border-transparent hover:border-mainBlue"
-                  onClick={() => navigateToSignUp('vendor')}
-                >
-                  Sign up as a Vendor
-                </p>
-              </div>
+              <p
+                className="text-mainBlue font-medium cursor-pointer inline border-b-2 border-transparent hover:border-mainBlue"
+                onClick={navigateToSignUp}
+              >
+                Sign up
+              </p>
             </div>
           </div>
         </div>

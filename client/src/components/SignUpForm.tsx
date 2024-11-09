@@ -15,7 +15,8 @@ function SignUpForm({ onSubmit, buttonText }: SignUpFormProps) {
   const [addressLine1, setAddressLine1] = useState<string>('');
   const [addressLine2, setAddressLine2] = useState<string>('');
   const [state, setState] = useState<string>('');
-  const [zipCode, setZipCode] = useState<string>('');
+  const [zipCode, setZipCode] = useState<string>('');  // First Zip Code
+  const [zipCode2, setZipCode2] = useState<string>(''); // Second Zip Code
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -28,7 +29,17 @@ function SignUpForm({ onSubmit, buttonText }: SignUpFormProps) {
       return;
     }
     try {
-      onSubmit({ fullName, email, phone, addressLine1, addressLine2, state, zipCode, password });
+      onSubmit({
+        fullName,
+        email,
+        phone,
+        addressLine1,
+        addressLine2,
+        state,
+        zipCode,
+        zipCode2, // Include the second zip code in the submitted data
+        password,
+      });
       setSuccessMessage("Account successfully created!");
       setError('');
     } catch (err) {
@@ -42,12 +53,12 @@ function SignUpForm({ onSubmit, buttonText }: SignUpFormProps) {
   };
 
   return (
-    <div className="flex flex-col w-full justify-center items-start" style={{paddingLeft:'12rem', paddingRight:'20rem'}}>
-    <h1 className="font-semibold text-2xl text-gray-800" style={{paddingBottom:'1rem'}}><strong>Create an account</strong></h1>
-    {successMessage && (
-          <p className="text-green-500 mt-2">{successMessage}</p>
-        )}
-        {error && <p className="text-red-500 mt-2">{error}</p>}
+    <div className="flex flex-col w-full justify-center items-start" style={{ paddingLeft: '12rem', paddingRight: '20rem' }}>
+      <h1 className="font-semibold text-2xl text-gray-800" style={{ paddingBottom: '1rem' }}><strong>Create an account</strong></h1>
+      {successMessage && (
+        <p className="text-green-500 mt-2">{successMessage}</p>
+      )}
+      {error && <p className="text-red-500 mt-2">{error}</p>}
       <div className="space-y-5 w-full mt-6">
         <CustomInput label="Full Name" inputType="text" value={fullName} onChange={(e) => setFullName(e.target.value)} />
         <CustomInput label="Email" inputType="text" value={email} onChange={(e) => setEmail(e.target.value)} />
@@ -56,17 +67,18 @@ function SignUpForm({ onSubmit, buttonText }: SignUpFormProps) {
         <CustomInput label="Address Line 2" inputType="text" value={addressLine2} onChange={(e) => setAddressLine2(e.target.value)} />
         <CustomInput label="State" inputType="text" value={state} onChange={(e) => setState(e.target.value)} />
         <CustomInput label="Zip Code" inputType="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
+        <CustomInput label="Second Zip Code" inputType="text" value={zipCode2} onChange={(e) => setZipCode2(e.target.value)} /> {/* New Zip Code input */}
         <CustomInput label="Password" inputType="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <CustomInput label="Confirm Password" inputType="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
-        <div style={{paddingTop:'2rem'}}>
-        <Button className="w-auto h-12 mt-6" variant="mainBlue" onClick={handleSubmit}>
-          <span className="text-mainWhite">{buttonText}</span>
-        </Button>
+        <div style={{ paddingTop: '2rem' }}>
+          <Button className="w-auto h-12 mt-6" variant="mainBlue" onClick={handleSubmit}>
+            <span className="text-mainWhite">{buttonText}</span>
+          </Button>
         </div>
-        <div style={{paddingTop:'2rem'}}>
-        <Button className="w-auto h-12 mt-6" variant="mainBlue" onClick={handleBackToLogin}>
-          <span className="text-mainWhite">Back to Login</span>
-        </Button>
+        <div style={{ paddingTop: '2rem' }}>
+          <Button className="w-auto h-12 mt-6" variant="mainBlue" onClick={handleBackToLogin}>
+            <span className="text-mainWhite">Back to Login</span>
+          </Button>
         </div>
       </div>
     </div>

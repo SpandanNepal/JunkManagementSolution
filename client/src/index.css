@@ -2,23 +2,10 @@
 @tailwind components;
 @tailwind utilities;
 
-html, body, #root {
-  height: 100%;
-  width:100%;
-}
-
-body {
-  margin: 0;
-  height: 100%;
-  width:100%;
-  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
-    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
-    sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
+/* global.css or index.css */
+/* Global styles - Add to your global CSS file or tailwind config */
+html, body {
+  min-height: 100%;
+  display: flex;
+  flex-direction: column;
 }

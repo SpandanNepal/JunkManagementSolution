@@ -62,25 +62,29 @@ function Login() {
     return (
       <div className="flex justify-center items-center w-full h-full bg-gray-100 p-4">
         {/* Left Side (Login Form) */}
-        <div className="flex flex-col w-full max-w-md bg-white shadow-lg rounded-lg p-8 space-y-6">
+        <div className="flex flex-col w-full max-w-md bg-white shadow-lg rounded-lg p-6 space-y-6">
           <div className="flex flex-col w-full">
-            <h1 className="font-semibold text-2xl text-gray-800" style={{paddingBottom:'1rem'}}><strong>JUNKger Login</strong></h1>
-            <h3 className="text-sm text-gray-600">Enter your credentials to access the account</h3>
+            <h1 className="font-semibold text-2xl text-gray-800 mb-4">
+              <strong>JUNKger Login</strong>
+            </h1>
+            <h3 className="text-sm text-gray-600 mb-4">
+              Enter your credentials to access the account
+            </h3>
 
             {/* Email Input */}
-            <div className="w-full space-y-2">
+            <div className="w-full space-y-2 mb-4">
               <CustomInput
                 label="Email"
                 inputType="email"
                 placeholder="johndoe@gmail.com"
                 value={data.email}
                 onChange={(e) => setData({ ...data, email: e.target.value })}
-                errorMessage={ (!data.email || !emailRegex.test(data.email)) ? "Invalid email" : ""}
+                errorMessage={(!data.email || !emailRegex.test(data.email)) ? "Invalid email" : ""}
               />
             </div>
 
             {/* Password Input */}
-            <div className="w-full space-y-2">
+            <div className="w-full space-y-2 mb-6">
               <CustomInput
                 label="Password"
                 inputType="password"
@@ -89,7 +93,9 @@ function Login() {
                 onChange={(e) => setData({ ...data, password: e.target.value })}
                 errorMessage={!data.password ? "Password cannot be empty" : ""}
               />
-              <h3 className="text-mainBlue text-sm text-right cursor-pointer mt-2">Forgot Password?</h3>
+              <h3 className="text-mainBlue text-sm text-right cursor-pointer mt-2">
+                Forgot Password?
+              </h3>
             </div>
 
             {/* Login Button */}
@@ -114,8 +120,8 @@ function Login() {
         </div>
 
         {/* Right Side (Image) */}
-        <div className="w-1/2 p-16 flex justify-center items-center" style={{paddingLeft:'4rem'}}>
-          <img src={loginImage} className="w-[250px] h-[250px] object-contain" alt="Login" />
+        <div className="w-1/2 p-8 flex justify-center items-center">
+          <img src={loginImage} className="w-[400px] h-[400px] object-contain" alt="Login" />
         </div>
       </div>
     );

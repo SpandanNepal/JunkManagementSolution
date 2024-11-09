@@ -7,6 +7,7 @@ interface Notification {
   sender: string; // Customer's or Vendor's name
   link: string; // Link to the respective profile page
   type: 'quotation-request' | 'quotation-reply'; // Type of notification
+  style: string;
 }
 
 interface NotificationContextProps {

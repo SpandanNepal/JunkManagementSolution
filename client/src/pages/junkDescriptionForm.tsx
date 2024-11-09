@@ -2,6 +2,7 @@ import React, { useState, ChangeEvent, FormEvent } from 'react';
 import CustomInput from '../components/input'; 
 import Button from '../components/button'; 
 import UploadBox from '../components/uploadBox'; 
+import { useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 
 const JunkDescriptionForm: React.FC = () => {
@@ -15,28 +16,29 @@ const JunkDescriptionForm: React.FC = () => {
   const [junkDescription, setJunkDescription] = useState<string>('');
   const [file, setFile] = useState<File | null>(null); 
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    const formData = new FormData();
-    formData.append('junkName', junkName);
-    formData.append('typeOfJunk', typeOfJunk);
-    formData.append('truckSize', truckSize);
-    formData.append('spaceOccupied', spaceOccupied);
-    formData.append('material', material);
-    formData.append('weight', weight);
-    formData.append('pickupDate', pickupDate);
-    formData.append('junkDescription', junkDescription);
-    if (file) {
-      formData.append('file', file);
+    const formData = {
+      junkName,
+      typeOfJunk,
+      truckSize,
+      spaceOccupied,
+      material,
+      weight,
+      pickupDate,
+      junkDescription
     }
 
     try {
-      const { data } = await axios.post('http://localhost:7777/api/junk/description', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      const response = await axios.post("http://localhost:5001/junk-update", {
+        collection: "junk-details",
+        docData: formData,
       });
-      console.log('Form submitted:', data);
+      
+      console.log('Form submitted:', response);
+      navigate('/vendorsearchresult')
     } catch (error) {
       console.error('Error submitting form:', error);
     }

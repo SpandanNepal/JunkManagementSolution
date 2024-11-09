@@ -70,7 +70,7 @@ app.post("/junk-update", async (req, res) => {
     }
 
     // Log for debugging purposes
-    console.log(`user registration successful: ${collection}`, docData);
+    console.log(`user registration successful:: ${collection}`, docData);
 
     // Add the document to Firestore
     await db.collection(collection).add(docData);

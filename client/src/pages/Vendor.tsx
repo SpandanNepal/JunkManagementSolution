@@ -14,6 +14,7 @@ interface VendorProps {
   customerName: string;
 }
 
+
 const Vendor: React.FC<VendorProps> = ({ name, rating, state, zipcode, bio, vendorId, customerName }) => {
   const { addNotification } = useNotifications();
   const navigate = useNavigate();

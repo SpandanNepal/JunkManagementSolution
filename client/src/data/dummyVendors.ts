@@ -46,9 +46,14 @@ function generateRandomCompanyName(): string {
   
     return companies[Math.floor(Math.random() * companies.length)];
   }
+  const generateRandomZipcode = (): string => {
+    const zipcode = Math.floor(Math.random() * 100000); // Generates a number between 0 and 99999
+    return zipcode.toString().padStart(5, '0'); // Pads with leading zeros if necessary
+  };
 
 // Generate random data for a vendor
 const generateVendorData = (index: number): VendorProps => {
+
   // Generate a vendor's data based on the index
   return {
     vendorId: index.toString(),  // Unique ID for the vendor (string)
@@ -56,7 +61,7 @@ const generateVendorData = (index: number): VendorProps => {
     company: `Company ${index}`,  // Company name
     rating: Math.floor(Math.random() * 5) + 1,  // Random rating between 1 and 5
     state: ['NY', 'CA', 'TX', 'FL', 'IL', 'WA', 'OR', 'NV', 'AZ', 'CO'][index % 10],  // Random state
-    zipcode: `9${Math.floor(Math.random() * 90000) + 10000}`,  // Random zipcode starting with 9
+    zipcode: generateRandomZipcode(),  // Random zipcode starting with 9
     bio: `This is a bio for Vendor ${index}. They offer a variety of services such as junk removal, recycling, and waste disposal.`,  // Vendor bio
     email: `vendor${index}@example.com`,  // Email in the format vendor1@example.com
     phone: `(555) ${Math.floor(Math.random() * 900) + 100}-${Math.floor(Math.random() * 9000) + 1000}`,  // Random phone number

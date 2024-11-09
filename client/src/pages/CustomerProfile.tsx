@@ -1,6 +1,9 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { FaSearch, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
-import { useNavigate } from 'react-router-dom';  // Import useNavigate
+import { useNavigate } from 'react-router-dom';
+import 'leaflet/dist/leaflet.css';
+import ReactMapGL, { Marker } from 'react-map-gl';
+import 'mapbox-gl/dist/mapbox-gl.css';
 import JunkUploadsList from './JunkUploadsList';
 
 const CustomerProfile: React.FC = () => {
@@ -12,12 +15,36 @@ const CustomerProfile: React.FC = () => {
     imageUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
   });
 
-  const navigate = useNavigate(); // useNavigate hook to navigate programmatically
+  const navigate = useNavigate();
+  const [coordinates, setCoordinates] = useState<[number, number] | null>(null);
+  
+  // Dummy coordinates for Springfield, IL (you can replace with a geocoding API result)
 
-  // Function to handle view details
+
+  
+  useEffect(() => {
+    const fetchCoordinates = async () => {
+      const response = await fetch(
+        `https://api.mapbox.com/geocoding/v5/mapbox.places/${encodeURIComponent(profile.address)}.json?access_token=pk.eyJ1IjoiYmhhbmRhcmliYXJzaGE5NSIsImEiOiJjbTM5bjZ0dTUxNzY1Mm1wenBpY3VidXlkIn0.J6dlnuZ1ktq0s81AY0YT0Q`
+      );
+      const data = await response.json();
+      if (data.features && data.features[0]) {
+        const [lon, lat] = data.features[0].geometry.coordinates;
+        setCoordinates([lat, lon]);
+      }
+    };
+
+    fetchCoordinates();
+  }, [profile.address]);
+
   const handleViewDetails = () => {
-    navigate(`/junk-details/1`); // Navigate to JunkDetails with an example ID
+    navigate(`/junk-details/1`);
   };
+
+  if (!coordinates) {
+    return <div>Loading map...</div>;
+  }
+
 
   return (
     <div>
@@ -63,10 +90,22 @@ const CustomerProfile: React.FC = () => {
           </div>
         </div>
 
-        {/* Add View Button */}
-        <button onClick={handleViewDetails} className="text-blue-500">
-          View Junk Details
-        </button>
+        <div style={{ height: '400px',  width: '400px',display: 'flex',justifyContent: 'center', alignItems: 'center', paddingTop: '3rem' }}>
+      <ReactMapGL
+        latitude={coordinates[0]}
+        longitude={coordinates[1]}
+        zoom={13}
+        mapboxAccessToken="pk.eyJ1IjoiYmhhbmRhcmliYXJzaGE5NSIsImEiOiJjbTM5bjZ0dTUxNzY1Mm1wenBpY3VidXlkIn0.J6dlnuZ1ktq0s81AY0YT0Q"
+        style={{ height: '100%', width: '100%' }}
+        mapStyle="mapbox://styles/mapbox/streets-v11" // You can choose any Mapbox style here
+      >
+        <Marker latitude={coordinates[0]} longitude={coordinates[1]}>
+          <div style={{ color: 'red', fontSize: '68px' }}>
+            <FaMapMarkerAlt />
+          </div>
+        </Marker>
+      </ReactMapGL>
+    </div>
       </div>
 
       <div style={{ paddingTop: '3rem' }}>

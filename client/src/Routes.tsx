@@ -67,7 +67,7 @@ const AppRoutes: React.FC = () => {
           <Route path="*" element={<Login />} />
         </Routes>
       </div>
-    </NotificationProvider> 
+    </NotificationProvider>
   );
 };
 

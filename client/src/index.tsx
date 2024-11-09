@@ -4,7 +4,7 @@ import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './output.css';
-import Footer from './pages/Footer';
+import Footer from './components/Footer';
 
 const rootElement = document.getElementById('root');
 if (rootElement) {

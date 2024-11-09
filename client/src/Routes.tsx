@@ -7,12 +7,12 @@ import JunkDescriptionForm from './pages/junkDescriptionForm';
 import VendorProfileForm from './pages/vendorProfileForm';
 import CustomerHomepage from './pages/CustomerHomepage';
 import VendorSearchResults from './pages/VendorSearchResults';
-import Menu from './pages/Menu';
+import Menu from './components/Menu';
 import CustomerProfile from './pages/CustomerProfile';
 import React from 'react';
 import JunkDetails from './pages/JunkDetails';
-import Header from './pages/Header';
 import Help from './pages/Help';
+import Header from './components/Header';
 
 const AppRoutes: React.FC = () => {
 
@@ -25,7 +25,7 @@ const AppRoutes: React.FC = () => {
   const loggedOutPaths = ['/selectuser', '/login', '/vendorsignup', '/customersignup'];
 
   const showHeaderMenu= !loggedOutPaths.includes(location.pathname);
-    
+   
   return (
     <div>
       {shouldShowMenu && <Menu isOpen={true} />} 

@@ -1,4 +1,5 @@
 import React from 'react';
+import { useNavigate } from 'react-router-dom'; 
 import { FaStar, FaUserCircle } from 'react-icons/fa'; // Use FaUserCircle for the circular icon
 import Button from '../components/button';
 
@@ -11,6 +12,10 @@ interface VendorProps {
 }
 
 const Vendor: React.FC<VendorProps> = ({ name, rating, state, zipcode, bio }) => {
+    const navigate = useNavigate(); 
+    const seeDetails = () =>{
+        navigate('/vendorprofileform')
+    }
     return (
             <div className="flex p-4 border-b border-gray-300 ml-10 md:ml-20 lg:ml-40">
             <div className="flex-shrink-0">
@@ -29,7 +34,7 @@ const Vendor: React.FC<VendorProps> = ({ name, rating, state, zipcode, bio }) =>
                 <p className="text-gray-800 mt-2">{bio}</p>
             </div>
             <div className="flex flex-col ml-4">
-                <Button type="button" variant="mainBlue" className="text-white py-1 px-4 rounded mb-2">See Details</Button>
+                <Button onClick={seeDetails} type="button" variant="mainBlue" className="text-white py-1 px-4 rounded mb-2">See Details</Button>
                 <Button type="button" variant="mainBlue" className="text-white py-1 px-4 rounded">Send Quotation</Button>
             </div>
         </div>

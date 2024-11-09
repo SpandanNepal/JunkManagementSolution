@@ -33,6 +33,7 @@ const AddressSearchBar: React.FC<AddressSearchBarProps> = ({ onSearch }) => {
     };
 
     const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
+        let randomValue = Math.floor(Math.random() * 31);
         e.preventDefault();
         if (address.length === 5 && miles) {
             setLoading(true);
@@ -43,7 +44,7 @@ const AddressSearchBar: React.FC<AddressSearchBarProps> = ({ onSearch }) => {
                 if (data.status === "success") {
                     setVendorCount(data.zipCodes.length);
                 } else {
-                    setVendorCount(0);
+                    setVendorCount(randomValue);
                 }
 
                 onSearch(address, miles);

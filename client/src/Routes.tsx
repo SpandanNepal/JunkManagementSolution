@@ -11,6 +11,8 @@ import Menu from './components/Menu';
 import CustomerProfile from './pages/CustomerProfile';
 import React from 'react';
 import JunkDetails from './pages/JunkDetails';
+import Help from './pages/Help';
+import Header from './components/Header';
 
 const AppRoutes: React.FC = () => {
 
@@ -19,13 +21,18 @@ const AppRoutes: React.FC = () => {
   const pathsWithMenu = ['/junkdescriptionform', '/vendorprofileform', '/vendorsearchresult','/customerProfile','/junk-details/:id'];
 
   const shouldShowMenu = pathsWithMenu.includes(location.pathname);
+
+  const loggedOutPaths = ['/selectuser', '/login', '/vendorsignup', '/customersignup'];
+
+  const showHeaderMenu= !loggedOutPaths.includes(location.pathname);
    
   return (
     <div>
       {shouldShowMenu && <Menu isOpen={true} />} 
+      <Header isLoggedIn={showHeaderMenu} />
     <Routes>
       <Route path="/selectuser" element={<SelectUser />} />
-      <Route path="/dashboard" element={<CustomerHomepage />} />
+      <Route path="/help" element={<Help />} />
       <Route path="/*" element={<Login />} />
       <Route path="/vendorsignup" element={<VendorSignUp />} />
       <Route path="/customersignup" element={<CustomerSignUp />} />

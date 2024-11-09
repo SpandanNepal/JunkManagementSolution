@@ -24,7 +24,7 @@ function VendorSignUp() {
     }
   }
 
-  return <SignUpForm onSubmit={handleVendorSignup} buttonText="Sign Up as Vendor" />;
+  return <SignUpForm onSubmit={handleVendorSignup} buttonText="Sign Up as a Vendor" />;
 }
 
 export default VendorSignUp;

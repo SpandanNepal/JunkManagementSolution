@@ -1,7 +1,7 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import AddressSearchBar from './AddressSearchBar';
 import '../../src/index.css';
+import AddressSearchBar from '../components/AddressSearchBar';
 
 const CustomerHomepage: React.FC = () => {
     const navigate = useNavigate()

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Vendor from './Vendor';
-import Header from './Header';
-import Menu from './Menu';
+import Header from '../components/Header';
+import Menu from '../components/Menu';
 import Button from '../components/button';
 
 const vendorsData = [

@@ -5,7 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 import './output.css';
 import Footer from './pages/Footer';
-import Header from './pages/Header';
+import Header from './components/Header';
 
 const rootElement = document.getElementById('root');
 if (rootElement) {

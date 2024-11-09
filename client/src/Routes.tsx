@@ -7,7 +7,7 @@ import JunkDescriptionForm from './pages/junkDescriptionForm';
 import VendorProfileForm from './pages/vendorProfileForm';
 import CustomerHomepage from './pages/CustomerHomepage';
 import VendorSearchResults from './pages/VendorSearchResults';
-import Menu from './pages/Menu';
+import Menu from './components/Menu';
 import CustomerProfile from './pages/CustomerProfile';
 import React from 'react';
 import JunkDetails from './pages/JunkDetails';

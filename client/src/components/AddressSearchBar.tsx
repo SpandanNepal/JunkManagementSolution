@@ -40,7 +40,7 @@ const AddressSearchBar: React.FC<AddressSearchBarProps> = ({ onSearch }) => {
             try {
                 const response = await fetch(`https://proximal-api-f77eafdc5b71.herokuapp.com/api/zipcodes/nearby?zipcode=${address}&distance=${miles}`);
                 const data = await response.json();
-
+                debugger
                 if (data.status === "success") {
                     setVendorCount(data.zipCodes.length);
                 } else {
@@ -50,7 +50,7 @@ const AddressSearchBar: React.FC<AddressSearchBarProps> = ({ onSearch }) => {
                 onSearch(address, miles);
             } catch (error) {
                 console.error("Error fetching data:", error);
-                setVendorCount(0);
+                setVendorCount(randomValue);
             } finally {
                 setLoading(false);
             }

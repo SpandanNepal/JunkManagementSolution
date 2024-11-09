@@ -17,7 +17,7 @@ function CustomerSignUp() {
 
       console.log('User registered:', user);
 
-      navigate('/dashboard');
+      navigate('/vendorprofileform');
     } catch (error) {
       console.log(error);
     }

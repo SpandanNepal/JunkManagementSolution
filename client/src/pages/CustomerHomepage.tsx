@@ -1,12 +1,15 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import AddressSearchBar from '../components/AddressSearchBar';
+import { useUserContext } from '../UserContext';
 
 const CustomerHomepage: React.FC = () => {
     const navigate = useNavigate();
+    const { user } = useUserContext(); // Destructure the context
+
 
     const handleAddressSearch = (address: string) => {
-        navigate('/vendorsearchresult');
+        console.log("userTYpe ", user)
         console.log('Searching for address:', address);
     };
 

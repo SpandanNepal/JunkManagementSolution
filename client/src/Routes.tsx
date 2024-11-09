@@ -40,6 +40,7 @@ const AppRoutes: React.FC = () => {
       <Route path="/vendorprofileform" element={<VendorProfileForm />} />
       <Route path="/customerhomepage" element={<CustomerHomepage />} />
       <Route path="/vendorsearchresult" element={<VendorSearchResults />} />
+      <Route path="/dashboardHistory" element={<CustomerHomepage />} />
       <Route path="/customerProfile" element={<CustomerProfile />} />
       <Route path="/junk-details/:id" element={<JunkDetails />} />
       <Route path="*" element={<Login />} />

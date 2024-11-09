@@ -49,7 +49,7 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
           {...rest} 
         />
         {isInvalid && (
-          <p id="error-message" className="mt-1 text-red-500 text-sm">{errorMessage || 'Invalid input'}</p> // Error message
+          <p id="error-message" className="mt-1 text-red-500 text-sm">{errorMessage || 'Required to continue'}</p> // Error message
         )}
       </div>
     );

@@ -44,11 +44,11 @@ const Header: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => {
                             </li>
                             <li className="flex items-center py-2 text-black hover:text-[#0058DC] hover:bg-gray-200 transition-colors duration-200">
                                 <FaQuestionCircle className="mr-2" />
-                                <a href="#help">Help</a>
+                                <a href="/help">Help</a>
                             </li>
                             <li className="flex items-center py-2 text-black hover:text-[#0058DC] hover:bg-gray-200 transition-colors duration-200">
                                 <FaSignOutAlt className="mr-2" />
-                                <a href="#signout">Signout</a>
+                                <a href="/login">Signout</a>
                             </li>
                         </ul>
                     </div>

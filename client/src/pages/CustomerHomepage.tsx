@@ -1,20 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
 import AddressSearchBar from './AddressSearchBar';
-import Header from './Header';
-import Menu from './Menu';
 import '../../src/index.css';
 
-export interface CustomerHomepageProps {
-}
-
 const CustomerHomepage: React.FC = () => {
-    const [menuOpen, setMenuOpen] = useState(false);
-
-    const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
-    };
-
+    const navigate = useNavigate()
     const handleAddressSearch = (address: string) => {
+        navigate('/vendorsearchresult');
         console.log('Searching for address:', address);
     };
 
@@ -27,15 +19,12 @@ const CustomerHomepage: React.FC = () => {
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 backgroundRepeat: 'no-repeat',
+                position: 'relative', // Ensure the container is positioned correctly
             }}
         >
-            <Header toggleMenu={toggleMenu} />
-            <Menu isOpen={true} />
-            <div className="flex items-center justify-center h-full">
-                <div className="absolute inset-0 bg-black bg-opacity-50"></div>
-                <div className="relative z-10">
-                    <AddressSearchBar onSearch={handleAddressSearch} />
-                </div>
+            <div className="absolute inset-0 bg-black bg-opacity-50"></div>
+            <div className="relative z-10 flex items-center justify-center h-full">
+                <AddressSearchBar onSearch={handleAddressSearch} />
             </div>
         </div>
     );

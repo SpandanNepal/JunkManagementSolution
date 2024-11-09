@@ -3,8 +3,9 @@ import { useNavigate } from 'react-router-dom';
 import CustomInput from '../components/input'; 
 import Button from '../components/button'; 
 import CustomerHomepage from './CustomerHomepage';
-import axios from 'axios';
 import loginImage from '../assets/loginImage.png';
+import { doSignInWithEmailAndPassword } from '../auth';
+
 
 function Login() {
   const [error, setError] = useState<string | null>(null); 
@@ -15,16 +16,16 @@ function Login() {
 
   const handleLogin = async () => {
     try {
-      const response = await axios.post("https://junk-management-solution-server.vercel.app/login", {
-        collection: "login",
-        docData: data,
-      });
-      console.log(response)
+      // Attempt to sign in with Firebase Authentication
+      await doSignInWithEmailAndPassword(data.email, data.password);
+
+      // If successful, navigate to the dashboard and set login as valid
       navigate('/dashboard');
-      setLoginValid(!loginValid)
+      setLoginValid(true);
     } catch (error) {
+      // If an error occurs, set the error message
       setError('Invalid credentials');
-      console.error(error);
+      console.error("Login error:", error);
     }
   };
 

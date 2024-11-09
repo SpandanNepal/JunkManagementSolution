@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import Vendor from './Vendor';
-import Header from './Header';
-import Menu from './Menu';
+import Header from '../components/Header';
+import Menu from '../components/Menu';
 import Button from '../components/button';
 
 const vendorsData = [
@@ -38,8 +38,6 @@ const VendorSearchResults: React.FC = () => {
 
     return (
         <div>
-            <Header toggleMenu={toggleMenu} />
-            <Menu isOpen={menuOpen} />
             <div className="flex flex-col min-h-screen">
                 <div className="flex-grow p-8 pl-40"> {/* Increased left padding */}
                     <div className="flex justify-center mb-4">

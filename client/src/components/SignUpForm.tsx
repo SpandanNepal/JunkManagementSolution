@@ -15,8 +15,7 @@ function SignUpForm({ onSubmit, buttonText }: SignUpFormProps) {
   const [addressLine1, setAddressLine1] = useState<string>('');
   const [addressLine2, setAddressLine2] = useState<string>('');
   const [state, setState] = useState<string>('');
-  const [zipCode, setZipCode] = useState<string>('');  // First Zip Code
-  const [zipCode2, setZipCode2] = useState<string>(''); // Second Zip Code
+  const [zipCode, setZipCode] = useState<string>('');  
   const [password, setPassword] = useState<string>('');
   const [confirmPassword, setConfirmPassword] = useState<string>('');
   const [error, setError] = useState<string>('');
@@ -37,7 +36,6 @@ function SignUpForm({ onSubmit, buttonText }: SignUpFormProps) {
         addressLine2,
         state,
         zipCode,
-        zipCode2, // Include the second zip code in the submitted data
         password,
       });
       setSuccessMessage("Account successfully created!");
@@ -67,7 +65,6 @@ function SignUpForm({ onSubmit, buttonText }: SignUpFormProps) {
         <CustomInput label="Address Line 2" inputType="text" value={addressLine2} onChange={(e) => setAddressLine2(e.target.value)} />
         <CustomInput label="State" inputType="text" value={state} onChange={(e) => setState(e.target.value)} />
         <CustomInput label="Zip Code" inputType="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
-        <CustomInput label="Second Zip Code" inputType="text" value={zipCode2} onChange={(e) => setZipCode2(e.target.value)} /> {/* New Zip Code input */}
         <CustomInput label="Password" inputType="password" value={password} onChange={(e) => setPassword(e.target.value)} />
         <CustomInput label="Confirm Password" inputType="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
         <div style={{ paddingTop: '2rem' }}>

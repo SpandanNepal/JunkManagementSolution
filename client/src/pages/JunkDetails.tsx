@@ -198,95 +198,108 @@ const JunkDetails: React.FC = () => {
         navigate(`/send-quotation/${item.id}`); // This will route to a send quotation page (you would need to set this up)
       };
 
-    return (
-        <div
-            className="py-6"
-            style={{ paddingLeft: "16rem", paddingRight: "16rem" }}
-        >
-            <div className="p-6 bg-white rounded-md shadow-lg">
-                
-                <h3
-                    className="text-2xl font-semibold mb-4"
-                    style={{ paddingBottom: "2rem" }}
-                >
-                    <strong>{item.title}</strong>
-                </h3>
-
-                <p className="mb-2">
-                    <strong>Junk Description</strong>
-                </p>
-                <p> {item.description}</p>
-                <p className="mb-2">
-                    <strong>Location</strong>{" "}
-                </p>
-                <p>{item.location}</p>
-                <p className="mb-2">
-                    <strong>Type of Junk</strong>{" "}
-                </p>
-                <p>{item.typeOfJunk}</p>
-                <p className="mb-2">
-                    <strong>Pick-Up Dates</strong>
-                </p>
-                <p> {item.pickUpDate}</p>
-                <p className="mb-2">
-                    <strong>Weight</strong>
-                </p>
-                <p> {item.weight} kg</p>
-                <p className="mb-2">
-                    <strong>Truck Size Needed</strong>
-                </p>
-                <p> {item.truckSize}</p>
-                <p className="mb-2">
-                    <strong>Material</strong>
-                </p>
-                <p> {item.material}</p>
-                <p className="mb-2">
-                    <strong>Space Occupied</strong>
-                </p>
-                <p> {item.spaceOccupied}</p>
-
-                <div className="mt-4">
-                    <h4 className="text-xl font-medium">
-                        <strong>Junk Photos:</strong>
-                    </h4>
-                    <div className="flex space-x-4 mt-2">
-                        {item.photos.map((photo, index) => (
-                            <img
-                                key={index}
-                                src={photo}
-                                alt={`Junk item ${item.id} photo ${index + 1}`}
-                                className="w-32 h-32 object-cover rounded-md"
-                            />
-                        ))}
-                    </div>
-                    <div className="mt-4" style={{paddingTop:'4rem', paddingBottom:'2rem'}}>
-
-                    <Button type="button" variant="mainBlue" onClick={() => handleBack()}>
-                    &larr; Back to Profile
-                </Button>
-                </div>
-          {/* Show Edit button if the logged-in user is the person who posted the junk */}
-          {loggedInUser === item.postedBy && (
-            <Button
-            onClick={() => handleEdit()}
-            type="button" variant="mainBlue"
-            >
-              Edit
-            </Button>
-          )}
-          
-          {/* Show Send Quotation button if the logged-in user is a vendor */}
-          {isVendor && loggedInUser !== item.postedBy && (
-            <Button
-            onClick={() => handleSendQuotation()}
-            type="button" variant="mainBlue"            >
-              Send Quotation
-            </Button>
-          )}
-                </div>
+      return (
+        <div className="py-6" style={{ paddingLeft: '16rem', paddingRight: '16rem' }}>
+          <div className="p-6 bg-white rounded-md shadow-lg relative">
+            
+            {/* Edit Button (only visible if logged-in user is the one who posted) */}
+            {loggedInUser === item.postedBy && (
+              <Button
+                onClick={() => handleEdit()}
+                type="button"
+                variant="mainBlue"
+                className="absolute top-4 right-4"
+              >
+                Edit
+              </Button>
+            )}
+      
+            <h3 className="text-2xl font-semibold mb-4" style={{ paddingBottom: '2rem' }}>
+              <strong>{item.title}</strong>
+            </h3>
+      
+            <div className="mb-4">
+              <p className="mb-2"><strong>Junk Description</strong></p>
+              <p>{item.description}</p>
             </div>
+      
+            {/* Junk Details */}
+            <div className="mb-4">
+              <p className="mb-2"><strong>Location</strong></p>
+              <p>{item.location}</p>
+            </div>
+      
+            
+            
+            <div className="grid grid-cols-3 gap-6 mb-4">
+            <div className="mb-4">
+              <p className="mb-2"><strong>Type of Junk</strong></p>
+              <p>{item.typeOfJunk}</p>
+            </div>
+      
+            <div className="mb-4">
+              <p className="mb-2"><strong>Pick-Up Dates</strong></p>
+              <p>{item.pickUpDate}</p>
+            </div>
+      
+            <div className="mb-4">
+              <p className="mb-2"><strong>Weight</strong></p>
+              <p>{item.weight} kg</p>
+            </div>
+            </div>
+            {/* Truck Size, Material, and Space Occupied (Horizontal layout) */}
+            <div className="grid grid-cols-3 gap-6 mb-4">
+              <div>
+                <p className="mb-2"><strong>Truck Size Needed</strong></p>
+                <p>{item.truckSize}</p>
+              </div>
+              <div>
+                <p className="mb-2"><strong>Material</strong></p>
+                <p>{item.material}</p>
+              </div>
+              <div>
+                <p className="mb-2"><strong>Space Occupied</strong></p>
+                <p>{item.spaceOccupied}</p>
+              </div>
+            </div>
+      
+            {/* Junk Photos */}
+            <div className="mt-4">
+              <h4 className="text-xl font-medium">
+                <strong>Junk Photos:</strong>
+              </h4>
+              <div className="flex space-x-4 mt-2">
+                {item.photos.map((photo, index) => (
+                  <img
+                    key={index}
+                    src={photo}
+                    alt={`Junk item ${item.id} photo ${index + 1}`}
+                    className="w-32 h-32 object-cover rounded-md"
+                  />
+                ))}
+              </div>
+            </div>
+      
+            {/* Back to Profile Link */}
+            <div className="mt-4 pt-8 pb-4">
+              <a href="/customerProfile" className="text-mainBlue text-lg font-medium">
+                &larr; Back to Profile
+              </a>
+            </div>
+      
+            {/* Show Send Quotation button if the logged-in user is a vendor */}
+            {isVendor && loggedInUser !== item.postedBy && (
+              <Button
+                onClick={() => handleSendQuotation()}
+                type="button"
+                variant="mainBlue"
+              >
+                Send Quotation
+              </Button>
+            )}
+          </div>
         </div>
-    );
-};
+      );
+    }
 
 export default JunkDetails;

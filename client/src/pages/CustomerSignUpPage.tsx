@@ -23,7 +23,7 @@ function CustomerSignUp() {
     }
   };
 
-  return <SignUpForm onSubmit={handleCustomerSignup} buttonText="Sign Up as Customer" />;
+  return <SignUpForm onSubmit={handleCustomerSignup} buttonText="Sign Up as a Customer" />;
 }
 
 export default CustomerSignUp;

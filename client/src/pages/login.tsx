@@ -1,20 +1,42 @@
-import React, { useState } from 'react';
-import { useNavigate } from 'react-router-dom'; 
-import CustomInput from '../components/input'; 
-import Button from '../components/button'; 
+import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import CustomInput from '../components/input';
+import Button from '../components/button';
 import CustomerHomepage from './CustomerHomepage';
 import loginImage from '../assets/loginImage.png';
 import { doSignInWithEmailAndPassword } from '../auth';
 
-
 function Login() {
-  const [error, setError] = useState<string | null>(null); 
-  const navigate = useNavigate(); 
+  const [error, setError] = useState<string | null>(null);
+  const navigate = useNavigate();
 
   const [data, setData] = useState({ email: "", password: "" });
   const [loginValid, setLoginValid] = useState(false);
 
+  // Regular expression for email validation
+  const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zAZ0-9.-]+\.[a-zA-Z]{2,}$/;
+
+  // Validate Email and Password
+  const validateForm = () => {
+    let valid = true;
+    if (!emailRegex.test(data.email)) {
+      setError('Invalid email');
+      valid = false;
+    } else if (data.password.length < 6) {
+      setError('Password must be at least 6 characters');
+      valid = false;
+    } else {
+      setError(null);
+    }
+    return valid;
+  };
+
   const handleLogin = async () => {
+    // Validate the form before attempting to log in
+    if (!validateForm()) {
+      return;  // Stop here if validation fails
+    }
+
     try {
       // Attempt to sign in with Firebase Authentication
       await doSignInWithEmailAndPassword(data.email, data.password);
@@ -29,52 +51,86 @@ function Login() {
     }
   };
 
-  if (loginValid ) {
-    return <CustomerHomepage />
-  } else {
-  return (
-    <div className="flex justify-center items-center flex-row w-screen h-full space-x-4 border-2 border-inherit bg-gray-100">
-      <div className="flex flex-col w-[386px] justify-center bg-white shadow-lg rounded-lg p-6">
-        <div className="flex flex-col w-full justify-center items-start">
-          <h1 className="font-semibold text-[18px] mt-6 text-gray-800">Welcome back!</h1>
-          <h3 className="text-[14px] text-gray-600">Enter your credentials to access the account</h3>
+  const navigateToSignUp = (userType: 'customer' | 'vendor') => {
+    if (userType === 'customer') {
+      navigate('/customersignup');
+    } else if (userType === 'vendor') {
+      navigate('/vendorsignup');
+    }
+  };
 
-          <div className="flex space-y-5 flex-col w-full justify-center items-start mt-6">
+  if (loginValid) {
+    return <CustomerHomepage />;
+  } else {
+    return (
+      <div className="flex justify-center items-center w-full h-full bg-gray-100 p-4">
+        {/* Left Side (Login Form) */}
+        <div className="flex flex-col w-full max-w-md bg-white shadow-lg rounded-lg p-8 space-y-6">
+          <div className="flex flex-col w-full">
+            <h1 className="font-semibold text-2xl text-gray-800" style={{paddingBottom:'1rem'}}><strong>JUNKger Login</strong></h1>
+            <h3 className="text-sm text-gray-600">Enter your credentials to access the account</h3>
+
+            {/* Email Input */}
             <div className="w-full space-y-2">
               <CustomInput
                 label="Email"
-                inputType="text"
-                placeholder="johndo@gmail.com"
+                inputType="email"
+                placeholder="johndoe@gmail.com"
                 value={data.email}
                 onChange={(e) => setData({ ...data, email: e.target.value })}
-                errorMessage={error ? "Invalid email" : ""}
+                errorMessage={ (!data.email || !emailRegex.test(data.email)) ? "Invalid email" : ""}
               />
             </div>
-            <div className="w-full">
+
+            {/* Password Input */}
+            <div className="w-full space-y-2">
               <CustomInput
                 label="Password"
                 inputType="password"
+                placeholder="******"
                 value={data.password}
                 onChange={(e) => setData({ ...data, password: e.target.value })}
-                errorMessage={error ? "Invalid password" : ""}
+                errorMessage={!data.password ? "Password cannot be empty" : ""}
               />
-              <h3 className="text-mainBlue">Forgot Password?</h3>
+              <h3 className="text-mainBlue text-sm text-right cursor-pointer mt-2">Forgot Password?</h3>
+            </div>
+
+            {/* Login Button */}
+            <Button 
+              className="w-full h-12 bg-mainBlue text-white hover:bg-blue-600 mt-6"
+              onClick={handleLogin}
+            >
+              <span className="text-mainWhite">Log in</span>
+            </Button>
+
+            {/* Sign-up Options */}
+            <div className="text-center text-sm text-gray-600 mt-4">
+              <span className="mr-2">Don’t have an account?</span>
+              <div className="inline-flex gap-4 font-medium cursor-pointer">
+                <p
+                  className="text-mainBlue border-b-2 border-transparent hover:border-mainBlue"
+                  onClick={() => navigateToSignUp('customer')}
+                >
+                  Sign up as a Customer
+                </p>
+                <p
+                  className="text-mainBlue border-b-2 border-transparent hover:border-mainBlue"
+                  onClick={() => navigateToSignUp('vendor')}
+                >
+                  Sign up as a Vendor
+                </p>
+              </div>
             </div>
           </div>
+        </div>
 
-          <Button className="w-full h-12 mt-6 mb-2 bg-mainBlue text-white hover:bg-blue-600" onClick={handleLogin}>
-            <span className="text-mainWhite">Log in</span>
-          </Button>
+        {/* Right Side (Image) */}
+        <div className="w-1/2 p-16 flex justify-center items-center" style={{paddingLeft:'4rem'}}>
+          <img src={loginImage} className="w-[250px] h-[250px] object-contain" alt="Login" />
         </div>
       </div>
-
-      <div className="w-1/2 p-16 flex justify-center items-center">
-        <img src={loginImage}  className="w-[200px] h-[200px]" alt="Login" />
-      </div>
-    </div>
-  );
-}
-
+    );
+  }
 }
 
 export default Login;

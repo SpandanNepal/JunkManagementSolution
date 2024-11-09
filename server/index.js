@@ -10,7 +10,6 @@ const port = 5001;
 
 app.use(express.json());
 
-app.use(cors({ origin: 'http://localhost:3000' }));
 app.use(cors({origin: 'https://junk-management-solution-client.vercel.app'}));
 
 // Limit Collections 

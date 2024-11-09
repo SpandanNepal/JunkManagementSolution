@@ -4,16 +4,20 @@ import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
+import Modal from './Modal'; // Import the Modal component
 
 const VendorProfile: React.FC = () => {
   const [coordinates, setCoordinates] = useState<[number, number] | null>(null);
-  
+  const [rating, setRating] = useState<number>(2); // Vendor's current rating
+  const [isCustomer, setIsCustomer] = useState<boolean>(true); // Assuming the user is a customer
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // State to control modal visibility
+
   const [profile] = useState({
     name: 'John Doe',
     email: 'john.doe@vendor.com',
     phone: '(555) 987-6543',
     address: '456 Vendor St, Denton, Texas',
-    imageUrl: 'https://randomuser.me/api/portraits/men/2.jpg', // Placeholder vendor image
+    imageUrl: 'https://randomuser.me/api/portraits/men/2.jpg',
     bio: `John doe’s bio here. John doe’s bio here. John doe’s bio here. 
           John doe’s bio here. John doe’s bio here. John doe’s bio here.`,
     description: `Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
@@ -23,28 +27,22 @@ const VendorProfile: React.FC = () => {
                   Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.`,
     services: ['Junk Pickup', 'Junk Disposal', 'Recycling'],
     availability: 'Mon-Fri: 9 AM to 8 PM',
-    rating: 2, // Vendor rating out of 5
+    rating: 2, // Initial vendor rating out of 5
   });
 
   const navigate = useNavigate(); // useNavigate hook to navigate programmatically
 
   // Function to handle sending a quotation request
   const handleSendQuotationRequest = () => {
-    // Your logic for sending a quotation request
     console.log('Quotation request sent to', profile.name);
   };
 
-  // Generate Star Rating based on the rating value
-  const generateStarRating = (rating: number) => {
-    const stars = [];
-    for (let i = 1; i <= 5; i++) {
-      stars.push(
-        <FaStar key={i} className={`text-${i <= rating ? 'yellow-500' : 'gray-400'}`} />
-      );
-    }
-    return stars;
+  // Update the vendor's average rating (called from Rating component)
+  const handleRatingUpdate = (newRating: number) => {
+    const updatedRating = (rating + newRating) / 2; // Calculate the average of the old and new rating
+    setRating(updatedRating); // Update the state with the new average rating
+    console.log('Updated vendor rating:', updatedRating); // Log the new rating (for debugging)
   };
-
 
   useEffect(() => {
     const fetchCoordinates = async () => {
@@ -103,7 +101,18 @@ const VendorProfile: React.FC = () => {
 
             {/* Star Rating */}
             <div className="flex items-center mt-2">
-              {generateStarRating(profile.rating)}
+              {rating ? (
+                <div className="flex items-center">
+                  {[...Array(5)].map((_, index) => (
+                    <FaStar
+                      key={index}
+                      className={`text-${index < rating ? 'yellow-500' : 'gray-400'}`}
+                    />
+                  ))}
+                </div>
+              ) : (
+                <span>No ratings yet</span>
+              )}
             </div>
 
             <div className="flex items-center text-lg text-gray-600 mt-2">
@@ -120,7 +129,12 @@ const VendorProfile: React.FC = () => {
             </div>
           </div>
         </div>
-
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onRate={handleRatingUpdate}
+          initialRating={rating}
+        />
         <div className="mt-8">
           <h3 className="text-2xl font-semibold text-gray-900">Bio</h3>
           <p className="text-lg text-gray-600 mt-2">{profile.bio}</p>
@@ -145,31 +159,54 @@ const VendorProfile: React.FC = () => {
           <p className="text-lg text-gray-600 mt-2">{profile.availability}</p>
         </div>
 
-        {/* Add View Button */}
+        {/* Send Quotation Button */}
         <button
           onClick={handleSendQuotationRequest}
           className="text-white bg-blue-500 px-6 py-2 mt-4 rounded-md shadow-md hover:bg-blue-600"
         >
           Send Quotation Request
         </button>
-        <div style={{ height: '400px',  width: '400px',display: 'flex',justifyContent: 'center', alignItems: 'center', paddingTop: '3rem' }}>
-      <ReactMapGL
-        latitude={coordinates[0]}
-        longitude={coordinates[1]}
-        zoom={13}
-        mapboxAccessToken="pk.eyJ1IjoiYmhhbmRhcmliYXJzaGE5NSIsImEiOiJjbTM5bjZ0dTUxNzY1Mm1wenBpY3VidXlkIn0.J6dlnuZ1ktq0s81AY0YT0Q"
-        style={{ height: '100%', width: '100%' }}
-        mapStyle="mapbox://styles/mapbox/streets-v11" // You can choose any Mapbox style here
-      >
-        <Marker latitude={coordinates[0]} longitude={coordinates[1]}>
-          <div style={{ color: 'red', fontSize: '68px' }}>
-            <FaMapMarkerAlt />
+
+        {/* Map */}
+        <div
+          style={{
+            height: '400px',
+            width: '400px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingTop: '3rem',
+          }}
+        >
+          <ReactMapGL
+            latitude={coordinates[0]}
+            longitude={coordinates[1]}
+            zoom={13}
+            mapboxAccessToken="pk.eyJ1IjoiYmhhbmRhcmliYXJzaGE5NSIsImEiOiJjbTM5bjZ0dTUxNzY1Mm1wenBpY3VidXlkIn0.J6dlnuZ1ktq0s81AY0YT0Q"
+            style={{ height: '100%', width: '100%' }}
+            mapStyle="mapbox://styles/mapbox/streets-v11"
+          >
+            <Marker latitude={coordinates[0]} longitude={coordinates[1]}>
+              <div style={{ color: 'red', fontSize: '100px' }}><FaMapMarkerAlt /></div>
+            </Marker>
+          </ReactMapGL>
+
+        </div>
+        {/* Rate Button Section */}
+        {isCustomer && (
+          <div className="absolute right-8 top-32">
+            <p className="text-lg font-medium text-gray-700 mb-4">
+              Worked with this vendor before? <strong>Rate this vendor</strong>
+            </p>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="text-white bg-blue-500 px-6 py-2 mt-4 rounded-md shadow-md hover:bg-blue-600"
+            >
+              Rate this Vendor
+            </button>
           </div>
-        </Marker>
-      </ReactMapGL>
-    </div>
+        )}
       </div>
-      
     </div>
   );
 };

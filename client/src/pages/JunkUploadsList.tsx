@@ -161,7 +161,7 @@ const JunkUploadsList: React.FC = () => {
   };
 
   return (
-    <div className="py-6" style={{ paddingLeft: '16rem', paddingRight: '16rem' }}>
+    <div className="py-6">
       {/* Heading */}
       <h2 className="text-3xl font-bold text-gray-900 mb-6"><strong>Junk Uploads</strong></h2>
 

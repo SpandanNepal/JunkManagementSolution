@@ -45,7 +45,6 @@ const AppRoutes: React.FC = () => {
 
   return (
     <NotificationProvider> {/* Wrap the routes with NotificationProvider */}
-      <div>
         {shouldShowMenu && <Menu isOpen={true} />} 
         <Header isLoggedIn={showHeaderMenu} />
         <Routes>
@@ -66,7 +65,6 @@ const AppRoutes: React.FC = () => {
           <Route path="/system-generated-quote" element={<SystemGeneratedQuote />} />
           <Route path="*" element={<Login />} />
         </Routes>
-      </div>
     </NotificationProvider> 
   );
 };

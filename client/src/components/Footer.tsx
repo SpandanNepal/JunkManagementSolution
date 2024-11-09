@@ -4,8 +4,8 @@ import { SiX } from 'react-icons/si';
 
 const Footer: React.FC = () => {
     return (
-        <div className="py-6" style={{ paddingTop: '16rem' }}>
-        <footer className="bg-gray-100 text-center py-24 mt-12"> {/* Add top margin (mt-12) and padding (py-6) */}
+        <footer className="bg-gray-100 text-center py-6 mt-auto">
+            {/* Add padding (py-6) to the footer and mt-auto to push it to the bottom */}
             <p className="text-gray-600">&copy; 2024 JUNKger. All rights reserved.</p>
             <p className="text-gray-600">Connect with us:</p>
             <ul className="flex justify-center space-x-4">
@@ -16,7 +16,7 @@ const Footer: React.FC = () => {
                         rel="noopener noreferrer" 
                         className="text-gray-600 hover:text-blue-600"
                     >
-                        <FaFacebook className="inline-block text-blue-600" size={30} />
+                        <FaFacebook className="inline-block text-blue-600" size={18} />
                     </a>
                 </li>
                 <li>
@@ -26,7 +26,7 @@ const Footer: React.FC = () => {
                         rel="noopener noreferrer" 
                         className="text-gray-600 hover:text-blue-600"
                     >
-                        <SiX className="inline-block text-blue-600" size={30} />
+                        <SiX className="inline-block text-blue-600" size={18} />
                     </a>
                 </li>
                 <li>
@@ -36,20 +36,21 @@ const Footer: React.FC = () => {
                         rel="noopener noreferrer" 
                         className="text-gray-600 hover:text-pink-500"
                     >
-                        <FaInstagram className="inline-block text-pink-500" size={30} />
+                        <FaInstagram className="inline-block text-pink-500" size={18} />
                     </a>
                 </li>
             </ul>
-            <p className="text-gray-600 mt-4">
-                <a href="mailto:contact@junkger.com" className="hover:text-green-500">
-                    contact@junkger.com
-                </a>
-            </p>
-            <p className="text-gray-600">
-                Phone: (123) 456-7890
-            </p>
+            <div className="flex justify-center space-x-6">
+                <p className="text-gray-600">
+                    <a href="mailto:contact@junkger.com" className="hover:text-green-500">
+                        contact@junkger.com
+                    </a>
+                </p>
+                <p className="text-gray-600">
+                    Phone: (123) 456-7890
+                </p>
+            </div>
         </footer>
-        </div>
     );
 };
 

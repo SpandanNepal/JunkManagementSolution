@@ -1,10 +1,8 @@
-import type { ProcessOptions } from 'postcss';
-
-const config: ProcessOptions = {
+// postcss.config.js
+module.exports = {
     plugins: {
-        tailwindcss: {},
-        autoprefixer: {},
+      tailwindcss: {},
+      autoprefixer: {},
     },
-};
-
-export default config;
+  };
+  

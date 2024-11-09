@@ -1,12 +1,11 @@
 import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
-import { useLocation, useNavigate } from 'react-router-dom';
 import CustomInput from '../components/input'; 
 import Button from '../components/button'; 
 import UploadBox from '../components/uploadBox'; 
+import { useLocation, useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 
 const JunkDescriptionForm: React.FC = () => {
-  const navigate = useNavigate();
   const { state } = useLocation();
   
   // Retrieve junk data passed from SystemGeneratedQuote
@@ -23,33 +22,30 @@ const JunkDescriptionForm: React.FC = () => {
   const [junkDescription, setJunkDescription] = useState<string>(junkData?.junkDescription || '');
   const [file, setFile] = useState<File | null>(null); 
 
+  const navigate = useNavigate();
+
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    // Create form data
-    const formData = new FormData();
-    formData.append('junkName', junkName);
-    formData.append('typeOfJunk', typeOfJunk);
-    formData.append('truckSize', truckSize);
-    formData.append('spaceOccupied', spaceOccupied);
-    formData.append('material', material);
-    formData.append('weight', weight);
-    formData.append('pickupDate', pickupDate);
-    formData.append('junkDescription', junkDescription);
-    if (file) {
-      formData.append('file', file);
+    const formData = {
+      junkName,
+      typeOfJunk,
+      truckSize,
+      spaceOccupied,
+      material,
+      weight,
+      pickupDate,
+      junkDescription
     }
 
     try {
-      // Simulate API call
-      // const { data } = await axios.post('http://localhost:7777/api/junk/description', formData, {
-      //   headers: {
-      //     'Content-Type': 'multipart/form-data',
-      //   },
-      // });
-
-      // Navigate to SystemGeneratedQuote with the necessary data
-      navigate('/system-generated-quote', {
+      const response = await axios.post("https://junk-management-solution-server.vercel.app/junk-update", {
+        collection: "junk-details",
+        docData: formData,
+      });
+      
+      console.log('Form submitted:', response);
+       navigate('/system-generated-quote', {
         state: { 
           junkData: { 
             junkName, 
@@ -63,7 +59,6 @@ const JunkDescriptionForm: React.FC = () => {
           }
         }
       });
-
     } catch (error) {
       console.error('Error submitting form:', error);
     }

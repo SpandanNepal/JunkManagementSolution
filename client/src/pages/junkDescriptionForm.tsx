@@ -32,7 +32,7 @@ const JunkDescriptionForm: React.FC = () => {
     }
 
     try {
-      const response = await axios.post("http://localhost:5001/junk-update", {
+      const response = await axios.post("https://junk-management-solution-server.vercel.app/junk-update", {
         collection: "junk-details",
         docData: formData,
       });

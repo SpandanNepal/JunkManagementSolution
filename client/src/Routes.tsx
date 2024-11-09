@@ -23,7 +23,7 @@ const AppRoutes: React.FC = () => {
 
   const location = useLocation();
 
-  const pathsWithMenu = ['/junkdescriptionform', '/vendorprofileform', '/vendorsearchresult','/customerProfile','/junk-details/:id', '/VendorDashboard'];
+  const pathsWithMenu = ['/junkdescriptionform', '/vendorsearchresult','/customerProfile','/junk-details/:id', '/VendorDashboard'];
 
   const shouldShowMenu = pathsWithMenu.includes(location.pathname);
 
@@ -46,7 +46,7 @@ const AppRoutes: React.FC = () => {
   return (
     <NotificationProvider> {/* Wrap the routes with NotificationProvider */}
         {shouldShowMenu && <Menu isOpen={true} />} 
-        <Header isLoggedIn={showHeaderMenu} />
+        <Header isLoggedIn={showHeaderMenu} userRole='customer'/>
         <Routes>
           <Route path="/selectuser" element={<SelectUser />} />
           <Route path="/help" element={<Help />} />

@@ -1,11 +1,16 @@
 import React, { useState } from 'react';
-import { FaTruck, FaUserCircle } from 'react-icons/fa'; // Importing the Profile icon
+import { FaCog, FaHome, FaQuestionCircle, FaSignOutAlt, FaTruck, FaUserCircle } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import { useNotifications } from '../context/authcontext/NotificationContext';
 
-const Header: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => {
+interface HeaderProps {
+  isLoggedIn: boolean;
+  userRole: 'customer' | 'vendor'; // Adding a prop for the user role
+}
+
+const Header: React.FC<HeaderProps> = ({ isLoggedIn, userRole }) => {
   const [menuOpen, setMenuOpen] = useState(false);
-  const { notifications, getNotifications } = useNotifications();
+  const { notifications } = useNotifications();
   const [showNotifications, setShowNotifications] = useState(false);
   const navigate = useNavigate();
 
@@ -22,17 +27,28 @@ const Header: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => {
     setMenuOpen(!menuOpen);
   };
 
+  // Navigate based on user role when clicking the logo
+  const handleLogoClick = () => {
+    if (isLoggedIn) {
+      if (userRole === 'customer') {
+        navigate('/vendorsearchresult');
+      } else if (userRole === 'vendor') {
+        navigate('/vendordashboard');
+      }
+    }
+  };
+
   return (
     <div className="py-4 px-2 bg-white bg-opacity-90 shadow-lg">
-      <div className="flex items-center justify-between max-w-screen-xl mx-auto"> {/* padding: 16px */}
+      <div className="flex items-center justify-between max-w-screen-xl mx-auto">
         {/* Logo Section */}
-        <div className="flex items-center">
+        <div className="flex items-center cursor-pointer" onClick={handleLogoClick}>
           <FaTruck className="text-[#0058DC] text-2xl" />
           <span className="text-2xl font-extrabold text-[#0058DC] font-inter ml-2">JunkGer</span>
         </div>
 
         {/* Right Section - User and Notifications */}
-        <div className="flex items-center space-x-6"> {/* Increased space between icons */}
+        <div className="flex items-center space-x-6">
           {isLoggedIn && (
             <>
               {/* Notification Button */}
@@ -64,11 +80,33 @@ const Header: React.FC<{ isLoggedIn: boolean }> = ({ isLoggedIn }) => {
                 )}
               </div>
 
-              {/* Profile Button (Replaced FaBars with FaUserCircle for profile) */}
-              <button onClick={toggleMenu} className="text-2xl text-black ml-8"> {/* Increased margin-left for more spacing */}
+              {/* Profile Button */}
+              <button onClick={toggleMenu} className="text-2xl text-black ml-8">
                 <FaUserCircle />
               </button>
             </>
+          )}
+          {isLoggedIn && menuOpen && (
+            <div className="absolute top-16 right-0 w-auto bg-white bg-opacity-80 shadow-lg z-10">
+              <ul className="flex flex-col p-4">
+                <li className="flex items-center py-2 text-black hover:text-[#0058DC] hover:bg-gray-200 transition-colors duration-200">
+                  <FaHome className="mr-2" />
+                  <a href="#home">Home</a>
+                </li>
+                <li className="flex items-center py-2 text-black hover:text-[#0058DC] hover:bg-gray-200 transition-colors duration-200">
+                  <FaCog className="mr-2" />
+                  <a href="#settings">Settings</a>
+                </li>
+                <li className="flex items-center py-2 text-black hover:text-[#0058DC] hover:bg-gray-200 transition-colors duration-200">
+                  <FaQuestionCircle className="mr-2" />
+                  <a href="/help">Help</a>
+                </li>
+                <li className="flex items-center py-2 text-black hover:text-[#0058DC] hover:bg-gray-200 transition-colors duration-200">
+                  <FaSignOutAlt className="mr-2" />
+                  <a href="/login">Signout</a>
+                </li>
+              </ul>
+            </div>
           )}
         </div>
       </div>

@@ -1,54 +1,67 @@
 import React, { useState } from 'react';
 import Vendor from './Vendor';
 import Button from '../components/button';
-
-const vendorsData = [
-    { name: 'John Doe', rating: 4, state: 'NY', zipcode: '10001', bio: 'Experienced junk removal service with over 5 years of service.' },
-    { name: 'Jane Smith', rating: 5, state: 'CA', zipcode: '90001', bio: 'Fast and reliable waste management.' },
-    { name: 'Sam Wilson', rating: 3, state: 'TX', zipcode: '73301', bio: 'Local junk removal service, eco-friendly options available.' },
-    { name: 'Sara Connor', rating: 4, state: 'FL', zipcode: '33101', bio: 'Family-owned junk removal business with great customer service.' },
-    { name: 'Mike Brown', rating: 2, state: 'IL', zipcode: '60601', bio: 'Affordable junk removal with quick service.' },
-    { name: 'Alice Green', rating: 5, state: 'WA', zipcode: '98001', bio: 'Eco-friendly junk disposal services.' },
-    { name: 'Bob White', rating: 4, state: 'OR', zipcode: '97201', bio: 'Reliable and professional waste management.' },
-    { name: 'Charlie Black', rating: 3, state: 'NV', zipcode: '89501', bio: 'Junk removal services tailored to your needs.' },
-    { name: 'Diana Prince', rating: 4, state: 'AZ', zipcode: '85001', bio: 'Experienced team for all junk removal tasks.' },
-    { name: 'Edward King', rating: 5, state: 'CO', zipcode: '80201', bio: 'Professional and eco-friendly services.' },
-];
+import dummyVendors from '../data/dummyVendors';
 
 const itemsPerPage = 4;
 
 const VendorSearchResults: React.FC = () => {
     const [menuOpen, setMenuOpen] = useState(false);
     const [currentPage, setCurrentPage] = useState(1);
+    const [filter, setFilter] = useState<{ rating?: number; state?: string }>({});
 
-    const toggleMenu = () => {
-        setMenuOpen(!menuOpen);
-    };
+    // Pagination setup
+    const totalPages = Math.ceil(dummyVendors.length / itemsPerPage);
 
-    const totalPages = Math.ceil(vendorsData.length / itemsPerPage);
-
+    // Function to handle page change
     const handlePageChange = (page: number) => {
         if (page > 0 && page <= totalPages) {
             setCurrentPage(page);
         }
     };
 
-    const currentVendors = vendorsData.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+    // Filter the vendors based on rating or location
+    const filteredVendors = dummyVendors.filter(vendor => {
+        if (filter.rating && vendor.rating !== filter.rating) return false;
+        if (filter.state && vendor.state !== filter.state) return false;
+        return true;
+    });
+
+    // Get the vendors for the current page after applying filters
+    const currentVendors = filteredVendors.slice((currentPage - 1) * itemsPerPage, currentPage * itemsPerPage);
+
+    // Handle filter changes
+    const handleFilterChange = (type: string, value: string | number) => {
+        setFilter(prev => ({ ...prev, [type]: value }));
+        setCurrentPage(1); // Reset to first page when filter is changed
+    };
 
     return (
-        <div className="flex flex-col items-center min-h-screen  bg-gray-50 p-6">
+        <div className="flex flex-col items-center min-h-screen bg-gray-50 p-6">
             {/* Filter Buttons */}
             <div className="flex space-x-4 mb-8">
-                <Button type="button" variant="borderMainBlue">Filter by Rating</Button>
-                <Button type="button" variant="borderMainBlue">Filter by Location</Button>
-                <Button type="button" variant="borderMainBlue">Filter by Availability</Button>
+                <Button type="button" variant="borderMainBlue" onClick={() => handleFilterChange('rating', 5)}>
+                    Filter by Rating: 5
+                </Button>
+                <Button type="button" variant="borderMainBlue" onClick={() => handleFilterChange('rating', 4)}>
+                    Filter by Rating: 4
+                </Button>
+                <Button type="button" variant="borderMainBlue" onClick={() => handleFilterChange('state', 'NY')}>
+                    Filter by Location: NY
+                </Button>
+                <Button type="button" variant="borderMainBlue" onClick={() => handleFilterChange('state', 'CA')}>
+                    Filter by Location: CA
+                </Button>
+                <Button type="button" variant="borderMainBlue" onClick={() => setFilter({})}>
+                    Clear Filters
+                </Button>
             </div>
             
             {/* Vendor List */}
             <div className="w-[1000px] space-y-4">
                 {currentVendors.map((vendor, index) => (
                     <div className="bg-white shadow-md rounded-md p-4" key={index}>
-                        <Vendor {...vendor} customerName='blah' vendorId='123' />
+                        <Vendor {...vendor} vendorId={vendor.vendorId} />
                     </div>
                 ))}
             </div>

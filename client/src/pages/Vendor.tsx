@@ -1,33 +1,49 @@
 import React from 'react';
-import { FaStar, FaUserCircle } from 'react-icons/fa';
+import { FaStar, FaEnvelope, FaPhone, FaMapMarkerAlt, FaUserCircle } from 'react-icons/fa';
+import { useNavigate } from 'react-router-dom';
 import Button from '../components/button';
 import { useNotifications } from '../context/authcontext/NotificationContext';
-import { Navigate, useNavigate } from 'react-router-dom';
 
-interface VendorProps {
+export interface VendorProps {
+  vendorId: string;
   name: string;
+  company: string;
   rating: number;
   state: string;
   zipcode: string;
   bio: string;
-  vendorId: string;
-  customerName: string;
+  email: string;
+  phone: string;
+  address: string;
+  imageUrl: string;
+  description: string;
+  services: string[];
+  availability: string;
 }
 
-
-const Vendor: React.FC<VendorProps> = ({ name, rating, state, zipcode, bio, vendorId, customerName }) => {
-  const { addNotification } = useNotifications();
+const Vendor: React.FC<VendorProps> = ({
+  vendorId,
+  name,
+  company,
+  rating,
+  state,
+  zipcode,
+  bio,
+  email,
+  phone,
+  address,
+  imageUrl,
+  description,
+  services,
+  availability,
+}) => {
   const navigate = useNavigate();
+  const { addNotification } = useNotifications();
 
-
-  const seeDetails = () =>{
-    navigate('/customerProfile')
-}
-
-const sendQuotation = () =>{
-    navigate('/customerProfile')
-}
-
+  const seeDetails = () => {
+    // Navigate to the vendor profile page and pass the vendorId in the URL
+    navigate(`/vendorProfile/${vendorId}`);
+  };
 
   const handleSendQuotationRequest = () => {
     // Create the notification for the vendor

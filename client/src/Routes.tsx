@@ -61,7 +61,7 @@ const AppRoutes: React.FC = () => {
           <Route path="/customerProfile" element={<CustomerProfile />} />
           <Route path="/junk-details/:id" element={<JunkDetails />} />
           <Route path="/selectuser" element={<SelectUser />} />
-          <Route path="/vendorprofile" element={<VendorProfile />} />
+          <Route path="/vendorProfile/:vendorId" element={<VendorProfile />} />
           <Route path="/system-generated-quote" element={<SystemGeneratedQuote />} />
           <Route path="*" element={<Login />} />
         </Routes>

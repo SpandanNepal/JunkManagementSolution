@@ -1,27 +1,42 @@
 import React, { useState } from 'react';
-import axios from 'axios';
 import Button from '../components/button';
+import { useNotifications } from '../context/authcontext/NotificationContext';
 
 interface SendQuotationModalProps {
     isOpen: boolean;
     onClose: () => void;
     vendorName: string;
+    vendorProfileLink: string; // The link to the vendor profile (or specific page)
+    customerName: string; // The name of the customer sending the quotation
 }
 
-const SendQuotationModal: React.FC<SendQuotationModalProps> = ({ isOpen, onClose, vendorName }) => {
+const SendQuotationModal: React.FC<SendQuotationModalProps> = ({
+    isOpen,
+    onClose,
+    vendorName,
+    vendorProfileLink,
+    customerName
+}) => {
     const [price, setPrice] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+    const { addNotification } = useNotifications(); // Accessing the context to add notifications
 
     const handleSendQuotation = async () => {
         try {
-            const response = await axios.post('http://localhost:7777/api/send-quotation', {
-                price,
-                message,
-                vendorName,
+            // Simulating quotation sending logic (e.g., without backend)
+            console.log('Quotation sent to', vendorName);
+
+            // Simulate notification for the vendor
+            addNotification({
+                id: `quotation-${new Date().getTime()}`, // Unique ID
+                message: `${customerName} sent you a quotation`,
+                sender: customerName,
+                link: vendorProfileLink, // Link to the vendor's profile
+                type: 'quotation-request',
             });
-            console.log('Quotation sent successfully:', response.data);
-            onClose(); // Close the modal after sending
+
+            onClose(); // Close the modal after sending the quotation
         } catch (error) {
             console.error('Error sending quotation:', error);
             setError('Failed to send quotation. Please try again.');

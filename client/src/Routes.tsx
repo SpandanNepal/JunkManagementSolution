@@ -1,4 +1,5 @@
 import { Routes, Route, useLocation } from 'react-router-dom';
+import React from 'react';
 import SelectUser from './pages/selectUserPage';
 import Login from './pages/login';
 import VendorSignUp from './pages/VendorSignUp';
@@ -9,43 +10,59 @@ import CustomerHomepage from './pages/CustomerHomepage';
 import VendorSearchResults from './pages/VendorSearchResults';
 import Menu from './components/Menu';
 import CustomerProfile from './pages/CustomerProfile';
-import React from 'react';
 import JunkDetails from './pages/JunkDetails';
 import Help from './pages/Help';
 import Header from './components/Header';
+import VendorDashboard from './pages/VendorDashboard';
+import CustomerQuotationBox from './components/dashboardHistoryBox';
+import { NotificationProvider } from './context/authcontext/NotificationContext';
 
 const AppRoutes: React.FC = () => {
 
   const location = useLocation();
 
-  const pathsWithMenu = ['/junkdescriptionform', '/vendorprofileform', '/vendorsearchresult','/customerProfile','/junk-details/:id'];
+  const pathsWithMenu = ['/junkdescriptionform', '/vendorprofileform', '/vendorsearchresult','/customerProfile','/junk-details/:id', '/VendorDashboard'];
 
   const shouldShowMenu = pathsWithMenu.includes(location.pathname);
 
   const loggedOutPaths = ['/selectuser', '/login', '/vendorsignup', '/customersignup'];
 
-  const showHeaderMenu= !loggedOutPaths.includes(location.pathname);
-   
+  const showHeaderMenu = !loggedOutPaths.includes(location.pathname);
+
+  const handleAccept = () => {
+    console.log('Quotation accepted');
+  };
+
+  const handleReject = () => {
+    console.log('Quotation rejected');
+  };
+
+  const handleViewDetails = () => {
+    console.log('Viewing details');
+  };
+
   return (
-    <div>
-      {shouldShowMenu && <Menu isOpen={true} />} 
-      <Header isLoggedIn={showHeaderMenu} />
-    <Routes>
-      <Route path="/selectuser" element={<SelectUser />} />
-      <Route path="/help" element={<Help />} />
-      <Route path="/*" element={<Login />} />
-      <Route path="/vendorsignup" element={<VendorSignUp />} />
-      <Route path="/customersignup" element={<CustomerSignUp />} />
-      <Route path="/junkdescriptionform" element={<JunkDescriptionForm />} />
-      <Route path="/vendorprofileform" element={<VendorProfileForm />} />
-      <Route path="/customerhomepage" element={<CustomerHomepage />} />
-      <Route path="/vendorsearchresult" element={<VendorSearchResults />} />
-      <Route path="/dashboardHistory" element={<CustomerHomepage />} />
-      <Route path="/customerProfile" element={<CustomerProfile />} />
-      <Route path="/junk-details/:id" element={<JunkDetails />} />
-      <Route path="*" element={<Login />} />
-    </Routes>
-    </div>
+    <NotificationProvider> {/* Wrap the routes with NotificationProvider */}
+      <div>
+        {shouldShowMenu && <Menu isOpen={true} />} 
+        <Header isLoggedIn={showHeaderMenu} />
+        <Routes>
+          <Route path="/selectuser" element={<SelectUser />} />
+          <Route path="/help" element={<Help />} />
+          <Route path="/*" element={<Login />} />
+          <Route path="/vendorsignup" element={<VendorSignUp />} />
+          <Route path="/customersignup" element={<CustomerSignUp />} />
+          <Route path="/junkdescriptionform" element={<JunkDescriptionForm />} />
+          <Route path="/vendorprofileform" element={<VendorProfileForm />} />
+          <Route path="/customerhomepage" element={<CustomerHomepage />} />
+          <Route path="/vendorsearchresult" element={<VendorSearchResults />} />
+          <Route path="/vendordashboard" element={<VendorDashboard />} />
+          <Route path="/customerProfile" element={<CustomerProfile />} />
+          <Route path="/junk-details/:id" element={<JunkDetails />} />
+          <Route path="*" element={<Login />} />
+        </Routes>
+      </div>
+    </NotificationProvider> 
   );
 };
 

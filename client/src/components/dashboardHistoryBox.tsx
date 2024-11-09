@@ -1,15 +1,15 @@
 import React from 'react';
-import { FaMapMarkerAlt } from 'react-icons/fa';
-import Button from '../components/button'; 
+import { FiMapPin } from 'react-icons/fi';
+import Button from './button';
 
-type CustomerQuotationBoxProps = {
+interface CustomerQuotationBoxProps {
   profilePicture: string;
   customerName: string;
   address: string;
   onAccept: () => void;
   onReject: () => void;
   onViewDetails: () => void;
-};
+}
 
 const CustomerQuotationBox: React.FC<CustomerQuotationBoxProps> = ({
   profilePicture,
@@ -20,41 +20,37 @@ const CustomerQuotationBox: React.FC<CustomerQuotationBoxProps> = ({
   onViewDetails,
 }) => {
   return (
-    <div className="flex items-center border rounded-lg p-4 shadow-md mb-4 w-full bg-white">
-      <div className="flex-shrink-0 mr-4">
-        <img
-          src={profilePicture}
-          alt={`${customerName}'s profile`}
-          className="w-16 h-16 rounded-full object-cover"
-        />
-      </div>
+    <div className="flex items-center p-4 bg-white shadow-md rounded-lg space-x-4">
+      {/* Profile Picture */}
+      <img src={profilePicture} alt={`${customerName}'s profile`} className="w-12 h-12 rounded-full" />
 
-      <div className="flex-grow">
-        <p className="text-lg font-semibold">
-          {customerName} sent you a quotation request
-        </p>
-        <div className="flex items-center text-gray-500 mt-1">
-          <FaMapMarkerAlt className="mr-1" />
+      {/* Customer Info */}
+      <div className="flex-1">
+        <p className="font-semibold">{customerName} sent you a quotation request</p>
+        <div className="flex items-center text-gray-600 mt-1">
+          <FiMapPin className="mr-1" />
           <span>{address}</span>
         </div>
+        {/* "View Details" Link */}
         <button
           onClick={onViewDetails}
-          className="text-mainBlue font-semibold mt-2"
+          className="text-mainBlue mt-2 hover:underline"
         >
           View Details
         </button>
       </div>
 
+      {/* Action Buttons */}
       <div className="flex space-x-2">
         <Button
+          variant="mainBlue"
           onClick={onAccept}
-          className="bg-green-500 text-white px-4 py-2 rounded-md"
         >
           Accept
         </Button>
         <Button
+          variant="borderMainBlue"
           onClick={onReject}
-          className="bg-red-500 text-white px-4 py-2 rounded-md"
         >
           Reject
         </Button>

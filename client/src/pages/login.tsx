@@ -41,7 +41,6 @@ function Login() {
     try {
       // Attempt to sign in with Firebase Authentication
       await doSignInWithEmailAndPassword(data.email, data.password);
-      debugger
       // If successful, navigate to the dashboard and set login as valid
       if(data.email.includes('ven')){
         navigate('/vendordashboard');

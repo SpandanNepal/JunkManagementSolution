@@ -13,6 +13,8 @@ import React from 'react';
 import JunkDetails from './pages/JunkDetails';
 import Help from './pages/Help';
 import Header from './components/Header';
+import VendorProfile from './pages/VendorProfile';
+import SystemGeneratedQuote from './pages/SystemGeneratedQuote';
 
 const AppRoutes: React.FC = () => {
 
@@ -28,12 +30,12 @@ const AppRoutes: React.FC = () => {
    
   return (
     <div>
-      {shouldShowMenu && <Menu isOpen={true} />} 
+      {shouldShowMenu && <Menu isOpen={true} />}
       <Header isLoggedIn={showHeaderMenu} />
     <Routes>
-      <Route path="/" element={<SelectUser />} />
+      <Route path="/selectuser" element={<SelectUser />} />
       <Route path="/help" element={<Help />} />
-      <Route path="/login" element={<Login />} />
+      <Route path="/*" element={<Login />} />
       <Route path="/vendorsignup" element={<VendorSignUp />} />
       <Route path="/customersignup" element={<CustomerSignUp />} />
       <Route path="/junkdescriptionform" element={<JunkDescriptionForm />} />
@@ -43,6 +45,8 @@ const AppRoutes: React.FC = () => {
       <Route path="/dashboardHistory" element={<CustomerHomepage />} />
       <Route path="/customerProfile" element={<CustomerProfile />} />
       <Route path="/junk-details/:id" element={<JunkDetails />} />
+      <Route path="/vendorprofile" element={<VendorProfile />} />
+      <Route path="/system-generated-quote" element={<SystemGeneratedQuote />} />
       <Route path="*" element={<Login />} />
     </Routes>
     </div>

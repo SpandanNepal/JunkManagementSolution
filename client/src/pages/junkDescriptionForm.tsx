@@ -1,25 +1,32 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
 import CustomInput from '../components/input'; 
 import Button from '../components/button'; 
 import UploadBox from '../components/uploadBox'; 
-import { useNavigate } from 'react-router-dom'; 
+import { useLocation, useNavigate } from 'react-router-dom'; 
 import axios from 'axios';
 
 const JunkDescriptionForm: React.FC = () => {
-  const [junkName, setJunkName] = useState<string>('');
-  const [typeOfJunk, setTypeOfJunk] = useState<string>('');
-  const [truckSize, setTruckSize] = useState<string>('');
-  const [spaceOccupied, setSpaceOccupied] = useState<string>('');
-  const [material, setMaterial] = useState<string>('');
-  const [weight, setWeight] = useState<string>('');
-  const [pickupDate, setPickupDate] = useState<string>('');
-  const [junkDescription, setJunkDescription] = useState<string>('');
+  const { state } = useLocation();
+  
+  // Retrieve junk data passed from SystemGeneratedQuote
+  const { junkData } = state || {};
+
+  // Initialize form fields with the junkData or empty strings
+  const [junkName, setJunkName] = useState<string>(junkData?.junkName || '');
+  const [typeOfJunk, setTypeOfJunk] = useState<string>(junkData?.typeOfJunk || '');
+  const [truckSize, setTruckSize] = useState<string>(junkData?.truckSize || '');
+  const [spaceOccupied, setSpaceOccupied] = useState<string>(junkData?.spaceOccupied || '');
+  const [material, setMaterial] = useState<string>(junkData?.material || '');
+  const [weight, setWeight] = useState<string>(junkData?.weight || '');
+  const [pickupDate, setPickupDate] = useState<string>(junkData?.pickupDate || '');
+  const [junkDescription, setJunkDescription] = useState<string>(junkData?.junkDescription || '');
   const [file, setFile] = useState<File | null>(null); 
 
   const navigate = useNavigate();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
     const formData = {
       junkName,
       typeOfJunk,
@@ -38,7 +45,20 @@ const JunkDescriptionForm: React.FC = () => {
       });
       
       console.log('Form submitted:', response);
-      navigate('/vendorsearchresult')
+       navigate('/system-generated-quote', {
+        state: { 
+          junkData: { 
+            junkName, 
+            typeOfJunk, 
+            truckSize, 
+            spaceOccupied, 
+            material, 
+            weight, 
+            pickupDate, 
+            junkDescription 
+          }
+        }
+      });
     } catch (error) {
       console.error('Error submitting form:', error);
     }
@@ -110,7 +130,7 @@ const JunkDescriptionForm: React.FC = () => {
 
           <CustomInput
             label="Junk Description"
-            inputType="text" // Use textarea type
+            inputType="text"
             placeholder="Describe the junk..."
             value={junkDescription}
             onChange={(e: ChangeEvent<HTMLInputElement>) => setJunkDescription(e.target.value)} 

@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { FaMapMarkerAlt } from 'react-icons/fa';
-import Button from '../components/button'; 
+import Button from '../components/button';
+import { useNavigate } from 'react-router-dom';
 
 type CustomerQuotationBoxProps = {
   profilePicture: string;

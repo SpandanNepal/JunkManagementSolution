@@ -20,6 +20,7 @@ const SendQuotationModal: React.FC<SendQuotationModalProps> = ({
     const [price, setPrice] = useState('');
     const [message, setMessage] = useState('');
     const [error, setError] = useState('');
+    const [successMessage, setSuccessMessage] = useState(''); // State for success message
     const { addNotification } = useNotifications(); // Accessing the context to add notifications
 
     const handleSendQuotation = async () => {
@@ -34,9 +35,17 @@ const SendQuotationModal: React.FC<SendQuotationModalProps> = ({
                 sender: customerName,
                 link: vendorProfileLink, // Link to the vendor's profile
                 type: 'quotation-request',
+                style: 'success',
             });
 
-            onClose(); // Close the modal after sending the quotation
+            // Set success message
+            setSuccessMessage('Quotation sent successfully!');
+
+            // Hide success message after 3 seconds
+            setTimeout(() => {
+                setSuccessMessage('');
+                onClose(); // Close the modal after a successful send
+            }, 3000);
         } catch (error) {
             console.error('Error sending quotation:', error);
             setError('Failed to send quotation. Please try again.');
@@ -54,8 +63,9 @@ const SendQuotationModal: React.FC<SendQuotationModalProps> = ({
                         &times;
                     </button>
                 </div>
-                
+
                 {error && <p className="text-red-500 text-sm mb-2">{error}</p>}
+                {successMessage && <p className="text-green-500 text-sm mb-2">{successMessage}</p>} {/* Display success message */}
 
                 <div className="mb-4">
                     <label className="block text-gray-700 font-medium mb-1">Price</label>

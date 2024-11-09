@@ -23,7 +23,7 @@ const AppRoutes: React.FC = () => {
 
   const location = useLocation();
 
-  const pathsWithMenu = ['/junkdescriptionform', '/vendorsearchresult','/customerProfile','/junk-details/:id', '/VendorDashboard'];
+  const pathsWithMenu = [ '/vendorsearchresult','/customerProfile','/junk-details/:id', '/VendorDashboard'];
 
   const shouldShowMenu = pathsWithMenu.includes(location.pathname);
 

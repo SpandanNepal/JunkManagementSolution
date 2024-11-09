@@ -31,9 +31,9 @@ const AppRoutes: React.FC = () => {
       {shouldShowMenu && <Menu isOpen={true} />} 
       <Header isLoggedIn={showHeaderMenu} />
     <Routes>
-      <Route path="/selectuser" element={<SelectUser />} />
+      <Route path="/" element={<SelectUser />} />
       <Route path="/help" element={<Help />} />
-      <Route path="/*" element={<Login />} />
+      <Route path="/login" element={<Login />} />
       <Route path="/vendorsignup" element={<VendorSignUp />} />
       <Route path="/customersignup" element={<CustomerSignUp />} />
       <Route path="/junkdescriptionform" element={<JunkDescriptionForm />} />

@@ -13,7 +13,6 @@ function Login() {
 
   const [data, setData] = useState({ email: "", password: "" });
   const [loginValid, setLoginValid] = useState(false);
-  const { setUserRole } = useUserContext();
   
   // Regular expression for email validation
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zAZ0-9.-]+\.[a-zA-Z]{2,}$/;
@@ -42,14 +41,12 @@ function Login() {
     try {
       // Attempt to sign in with Firebase Authentication
       await doSignInWithEmailAndPassword(data.email, data.password);
-
+      debugger
       // If successful, navigate to the dashboard and set login as valid
       if(data.email.includes('ven')){
-        setUserRole('vendor'); 
         navigate('/vendordashboard');
       }
        else if(data.email.includes('cus')){
-        setUserRole('customer'); 
         navigate('/customerhomepage');
       }
 

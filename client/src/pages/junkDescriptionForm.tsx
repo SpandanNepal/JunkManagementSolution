@@ -1,22 +1,32 @@
-import React, { useState, ChangeEvent, FormEvent } from 'react';
+import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import { useLocation, useNavigate } from 'react-router-dom';
 import CustomInput from '../components/input'; 
 import Button from '../components/button'; 
 import UploadBox from '../components/uploadBox'; 
 import axios from 'axios';
 
 const JunkDescriptionForm: React.FC = () => {
-  const [junkName, setJunkName] = useState<string>('');
-  const [typeOfJunk, setTypeOfJunk] = useState<string>('');
-  const [truckSize, setTruckSize] = useState<string>('');
-  const [spaceOccupied, setSpaceOccupied] = useState<string>('');
-  const [material, setMaterial] = useState<string>('');
-  const [weight, setWeight] = useState<string>('');
-  const [pickupDate, setPickupDate] = useState<string>('');
-  const [junkDescription, setJunkDescription] = useState<string>('');
+  const navigate = useNavigate();
+  const { state } = useLocation();
+  
+  // Retrieve junk data passed from SystemGeneratedQuote
+  const { junkData } = state || {};
+
+  // Initialize form fields with the junkData or empty strings
+  const [junkName, setJunkName] = useState<string>(junkData?.junkName || '');
+  const [typeOfJunk, setTypeOfJunk] = useState<string>(junkData?.typeOfJunk || '');
+  const [truckSize, setTruckSize] = useState<string>(junkData?.truckSize || '');
+  const [spaceOccupied, setSpaceOccupied] = useState<string>(junkData?.spaceOccupied || '');
+  const [material, setMaterial] = useState<string>(junkData?.material || '');
+  const [weight, setWeight] = useState<string>(junkData?.weight || '');
+  const [pickupDate, setPickupDate] = useState<string>(junkData?.pickupDate || '');
+  const [junkDescription, setJunkDescription] = useState<string>(junkData?.junkDescription || '');
   const [file, setFile] = useState<File | null>(null); 
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+
+    // Create form data
     const formData = new FormData();
     formData.append('junkName', junkName);
     formData.append('typeOfJunk', typeOfJunk);
@@ -31,12 +41,29 @@ const JunkDescriptionForm: React.FC = () => {
     }
 
     try {
-      const { data } = await axios.post('http://localhost:7777/api/junk/description', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data',
-        },
+      // Simulate API call
+      // const { data } = await axios.post('http://localhost:7777/api/junk/description', formData, {
+      //   headers: {
+      //     'Content-Type': 'multipart/form-data',
+      //   },
+      // });
+
+      // Navigate to SystemGeneratedQuote with the necessary data
+      navigate('/system-generated-quote', {
+        state: { 
+          junkData: { 
+            junkName, 
+            typeOfJunk, 
+            truckSize, 
+            spaceOccupied, 
+            material, 
+            weight, 
+            pickupDate, 
+            junkDescription 
+          }
+        }
       });
-      console.log('Form submitted:', data);
+
     } catch (error) {
       console.error('Error submitting form:', error);
     }
@@ -108,7 +135,7 @@ const JunkDescriptionForm: React.FC = () => {
 
           <CustomInput
             label="Junk Description"
-            inputType="text" // Use textarea type
+            inputType="text"
             placeholder="Describe the junk..."
             value={junkDescription}
             onChange={(e: ChangeEvent<HTMLInputElement>) => setJunkDescription(e.target.value)} 

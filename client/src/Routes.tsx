@@ -13,6 +13,8 @@ import React from 'react';
 import JunkDetails from './pages/JunkDetails';
 import Help from './pages/Help';
 import Header from './components/Header';
+import VendorProfile from './pages/VendorProfile';
+import SystemGeneratedQuote from './pages/SystemGeneratedQuote';
 
 const AppRoutes: React.FC = () => {
 
@@ -42,6 +44,8 @@ const AppRoutes: React.FC = () => {
       <Route path="/vendorsearchresult" element={<VendorSearchResults />} />
       <Route path="/customerProfile" element={<CustomerProfile />} />
       <Route path="/junk-details/:id" element={<JunkDetails />} />
+      <Route path="/vendorprofile" element={<VendorProfile />} />
+      <Route path="/system-generated-quote" element={<SystemGeneratedQuote />} />
       <Route path="*" element={<Login />} />
     </Routes>
     </div>

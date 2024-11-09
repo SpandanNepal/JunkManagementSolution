@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { FaSearch, FaEnvelope, FaPhone, FaMapMarkerAlt } from 'react-icons/fa';
+import { FaSearch, FaEnvelope, FaPhone, FaMapMarkerAlt, FaStar } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 import 'leaflet/dist/leaflet.css';
 import ReactMapGL, { Marker } from 'react-map-gl';
 import 'mapbox-gl/dist/mapbox-gl.css';
-import JunkUploadsList from './JunkUploadsList';
+import Modal from './Modal'; // Import the Modal component
+import JunkUploadsList from './JunkUploadsList'; // Assuming JunkUploadsList is used
 
 const CustomerProfile: React.FC = () => {
   const [profile] = useState({
@@ -15,13 +16,13 @@ const CustomerProfile: React.FC = () => {
     imageUrl: 'https://randomuser.me/api/portraits/men/1.jpg',
   });
 
-  const navigate = useNavigate();
   const [coordinates, setCoordinates] = useState<[number, number] | null>(null);
-  
-  // Dummy coordinates for Springfield, IL (you can replace with a geocoding API result)
+  const [rating, setRating] = useState<number>(3); // Customer's rating
+  const [isModalOpen, setIsModalOpen] = useState<boolean>(false); // Modal state
+  const [isVendor, setIsVendor] = useState<boolean>(true); // Assuming this is a customer profile
 
+  const navigate = useNavigate(); // UseNavigate hook to navigate programmatically
 
-  
   useEffect(() => {
     const fetchCoordinates = async () => {
       const response = await fetch(
@@ -37,6 +38,13 @@ const CustomerProfile: React.FC = () => {
     fetchCoordinates();
   }, [profile.address]);
 
+  // Handle rating update (same logic as vendor)
+  const handleRatingUpdate = (newRating: number) => {
+    const updatedRating = (rating + newRating) / 2; // Calculate the average of old and new rating
+    setRating(updatedRating); // Update the state with the new average rating
+    console.log('Updated rating:', updatedRating);
+  };
+
   const handleViewDetails = () => {
     navigate(`/junk-details/1`);
   };
@@ -45,10 +53,9 @@ const CustomerProfile: React.FC = () => {
     return <div>Loading map...</div>;
   }
 
-
   return (
-    <div>
-      <div className="py-6" style={{ paddingLeft: '16rem', paddingRight: '16rem' }}>
+    <div className="py-6" style={{ paddingLeft: '16rem', paddingRight: '16rem' }}>
+      <div>
         <div className="mb-6">
           <div className="relative w-full">
             <FaSearch className="absolute left-3 top-2.5 text-gray-500" />
@@ -90,27 +97,79 @@ const CustomerProfile: React.FC = () => {
           </div>
         </div>
 
-        <div style={{ height: '400px',  width: '400px',display: 'flex',justifyContent: 'center', alignItems: 'center', paddingTop: '3rem' }}>
-      <ReactMapGL
-        latitude={coordinates[0]}
-        longitude={coordinates[1]}
-        zoom={13}
-        mapboxAccessToken="pk.eyJ1IjoiYmhhbmRhcmliYXJzaGE5NSIsImEiOiJjbTM5bjZ0dTUxNzY1Mm1wenBpY3VidXlkIn0.J6dlnuZ1ktq0s81AY0YT0Q"
-        style={{ height: '100%', width: '100%' }}
-        mapStyle="mapbox://styles/mapbox/streets-v11" // You can choose any Mapbox style here
-      >
-        <Marker latitude={coordinates[0]} longitude={coordinates[1]}>
-          <div style={{ color: 'red', fontSize: '68px' }}>
-            <FaMapMarkerAlt />
-          </div>
-        </Marker>
-      </ReactMapGL>
-    </div>
+        {/* Rating Section */}
+        <div className="flex items-center mt-2">
+          {rating ? (
+            <div className="flex items-center">
+              {[...Array(5)].map((_, index) => (
+                <FaStar
+                  key={index}
+                  className={`text-${index < rating ? 'yellow-500' : 'gray-400'}`}
+                />
+              ))}
+            </div>
+          ) : (
+            <span>No ratings yet</span>
+          )}
+        </div>
+
+        {/* Map */}
+        <div
+          style={{
+            height: '400px',
+            width: '400px',
+            display: 'flex',
+            justifyContent: 'center',
+            alignItems: 'center',
+            paddingTop: '3rem',
+          }}
+        >
+          <ReactMapGL
+            latitude={coordinates[0]}
+            longitude={coordinates[1]}
+            zoom={13}
+            mapboxAccessToken="pk.eyJ1IjoiYmhhbmRhcmliYXJzaGE5NSIsImEiOiJjbTM5bjZ0dTUxNzY1Mm1wenBpY3VidXlkIn0.J6dlnuZ1ktq0s81AY0YT0Q"
+            style={{ height: '100%', width: '100%' }}
+            mapStyle="mapbox://styles/mapbox/streets-v11"
+          >
+            <Marker latitude={coordinates[0]} longitude={coordinates[1]}>
+              <div style={{ color: 'red', fontSize: '68px' }}>
+                <FaMapMarkerAlt />
+              </div>
+            </Marker>
+          </ReactMapGL>
+        </div>
+
+        {/* Modal */}
+        <Modal
+          isOpen={isModalOpen}
+          onClose={() => setIsModalOpen(false)}
+          onRate={handleRatingUpdate}
+          initialRating={rating}
+        />
+
+        
       </div>
 
+      {/* Junk Uploads List */}
       <div style={{ paddingTop: '3rem' }}>
         <JunkUploadsList />
       </div>
+
+      {/* Rate Button Section (Visible if Vendor) */}
+      {isVendor && (
+          <div className="absolute right-8 top-32">
+            <p className="text-lg font-medium text-gray-700 mb-4">
+              Worked with this customer before? <strong>Rate this customer</strong>
+            </p>
+            <button
+              onClick={() => setIsModalOpen(true)}
+              className="text-white bg-blue-500 px-6 py-2 mt-4 rounded-md shadow-md hover:bg-blue-600"
+            >
+              Rate this Customer
+            </button>
+          </div>
+        )}
     </div>
   );
 };

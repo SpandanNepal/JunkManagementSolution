@@ -65,7 +65,7 @@ const VendorDashboard: React.FC = () => {
 
       <div className="flex justify-between mb-6">
         <div className="w-1/2 p-4 bg-white shadow-md rounded-lg mr-4">
-          <h2 className="text-lg font-semibold mb-2">Total Quotations Received</h2>
+          <h2 className="text-lg font-semibold mb-2">Total Quotation Received</h2>
           <Doughnut data={donutData} />
         </div>
         <div className="w-1/2 p-4 bg-white shadow-md rounded-lg">

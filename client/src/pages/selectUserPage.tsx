@@ -14,7 +14,7 @@ const SelectUser: React.FC = () => {
 
   return (
     <div className="flex flex-col items-center justify-center h-screen">
-      <h2 className="text-2xl font-semibold mb-6">Register as a:</h2>
+      <h2 className="text-2xl font-semibold mb-6">Register As A:</h2>
       <div className="flex space-x-4">
         <button 
           onClick={() => handleRegister('vendor')} 

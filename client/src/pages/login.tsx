@@ -5,6 +5,7 @@ import Button from '../components/button';
 import CustomerHomepage from './CustomerHomepage';
 import loginImage from '../assets/loginImage.png';
 import { doSignInWithEmailAndPassword } from '../auth';
+import { useUserContext } from '../UserContext';
 
 function Login() {
   const [error, setError] = useState<string | null>(null);
@@ -12,7 +13,8 @@ function Login() {
 
   const [data, setData] = useState({ email: "", password: "" });
   const [loginValid, setLoginValid] = useState(false);
-
+  const { setUserRole } = useUserContext();
+  
   // Regular expression for email validation
   const emailRegex = /^[a-zA-Z0-9._%+-]+@[a-zAZ0-9.-]+\.[a-zA-Z]{2,}$/;
 
@@ -42,7 +44,15 @@ function Login() {
       await doSignInWithEmailAndPassword(data.email, data.password);
 
       // If successful, navigate to the dashboard and set login as valid
-      navigate('/dashboard');
+      if(data.email.includes('ven')){
+        setUserRole('vendor'); 
+        navigate('/vendordashboard');
+      }
+       else if(data.email.includes('cus')){
+        setUserRole('customer'); 
+        navigate('/customerhomepage');
+      }
+
       setLoginValid(true);
     } catch (error) {
       // If an error occurs, set the error message

@@ -10,8 +10,7 @@ const Menu: React.FC<MenuProps> = ({ isOpen }) => {
         <div
             className={`absolute top-20 w-48 bg-white bg-opacity-80 transition-transform transform ${isOpen ? 'translate-x-0' : '-translate-x-full'} z-50`} 
             style={{
-                height: 'full', // Sidebar height
-                boxShadow: '6px 0px 10px rgba(0, 0, 0, 0.2)', // Right-only shadow
+                height: 'full'
             }}
         >
             <ul className="flex flex-col p-4 h-full">

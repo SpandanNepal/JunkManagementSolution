@@ -91,7 +91,7 @@ const Header: React.FC<HeaderProps> = ({ isLoggedIn, userRole }) => {
               <ul className="flex flex-col p-4">
                 <li className="flex items-center py-2 text-black hover:text-[#0058DC] hover:bg-gray-200 transition-colors duration-200">
                   <FaHome className="mr-2" />
-                  <a href="#home">Home</a>
+                  <a href="/customerProfile">Home</a>
                 </li>
                 <li className="flex items-center py-2 text-black hover:text-[#0058DC] hover:bg-gray-200 transition-colors duration-200">
                   <FaCog className="mr-2" />

@@ -7,7 +7,7 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        mainBlue: '#0066FF',
+        mainBlue: '#023A8F',
         alertRed: '#ED2020',
         textWhite: '#FFFFFF',
         focusedBlue: '#CFE1FB',

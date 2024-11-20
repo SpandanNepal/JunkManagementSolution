@@ -75,7 +75,7 @@ const VendorDashboard: React.FC = () => {
       </div>
 
       <div className="bg-white shadow-md rounded-lg p-4">
-        <h2 className="text-lg font-semibold mb-4">Quotation Requests</h2>
+        <h2 className="text-md font-semibold mb-4">Quotation Requests</h2>
         <div className="space-y-4 overflow-y-auto h-96">
           {quotationRequests.map((request) => (
             <CustomerQuotationBox

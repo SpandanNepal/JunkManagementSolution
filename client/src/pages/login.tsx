@@ -127,7 +127,7 @@ function Login() {
 
         {/* Right Side (Image) */}
         <div className="w-1/2 p-8 flex justify-center items-center">
-          <img src={loginImage} className="w-[400px] h-[400px] object-contain" alt="Login image" />
+          <img src={loginImage} className="w-[400px] h-[400px] object-contain" alt="Login illustration image" />
         </div>
       </div>
     );

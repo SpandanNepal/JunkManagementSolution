@@ -15,8 +15,9 @@ const Footer: React.FC = () => {
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="text-gray-600 hover:text-blue-600"
+                        aria-label="Visit our Facebook page"
                     >
-                        <FaFacebook className="inline-block text-blue-600" size={18} />
+                        <FaFacebook className="inline-block text-blue-600" size={18} aria-label="Facebook icon" />
                     </a>
                 </li>
                 <li>
@@ -25,8 +26,9 @@ const Footer: React.FC = () => {
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="text-gray-600 hover:text-blue-600"
+                        aria-label="Visit our X (Twitter) page"
                     >
-                        <SiX className="inline-block text-blue-600" size={18} />
+                        <SiX className="inline-block text-blue-600" size={18} aria-label="X (Twitter) icon" />
                     </a>
                 </li>
                 <li>
@@ -35,8 +37,9 @@ const Footer: React.FC = () => {
                         target="_blank" 
                         rel="noopener noreferrer" 
                         className="text-gray-600 hover:text-pink-500"
+                        aria-label="Visit our Instagram page"
                     >
-                        <FaInstagram className="inline-block text-pink-500" size={18} />
+                        <FaInstagram className="inline-block text-pink-500" size={18} aria-label="Instagram icon" />
                     </a>
                 </li>
             </ul>

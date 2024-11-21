@@ -1,4 +1,4 @@
-import React, { useState, ChangeEvent, FormEvent, useEffect } from 'react';
+import React, { useState, ChangeEvent, FormEvent } from 'react';
 import CustomInput from '../components/input'; 
 import Button from '../components/button'; 
 import UploadBox from '../components/uploadBox'; 
@@ -8,10 +8,8 @@ import axios from 'axios';
 const JunkDescriptionForm: React.FC = () => {
   const { state } = useLocation();
   
-  // Retrieve junk data passed from SystemGeneratedQuote
   const { junkData } = state || {};
 
-  // Initialize form fields with the junkData or empty strings
   const [junkName, setJunkName] = useState<string>(junkData?.junkName || '');
   const [typeOfJunk, setTypeOfJunk] = useState<string>(junkData?.typeOfJunk || '');
   const [truckSize, setTruckSize] = useState<string>(junkData?.truckSize || '');
@@ -69,79 +67,107 @@ const JunkDescriptionForm: React.FC = () => {
       <div className="bg-white shadow-md rounded-lg p-6 w-1/2">
         <h1 className="text-2xl font-bold text-center mb-4">Junk Description Form</h1>
         <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
-          <CustomInput
-            label="Junk Name"
-            inputType="text"
-            placeholder="Junk Name"
-            value={junkName}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setJunkName(e.target.value)}
-          />
-          
-          <div className="flex justify-between space-x-4">
+          <div>
+            <label htmlFor="junkName" className="block text-sm font-medium text-gray-700">Junk Name</label>
             <CustomInput
-              label="Type Of Junk"
-              variant="small"
               inputType="text"
-              value={typeOfJunk}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setTypeOfJunk(e.target.value)}
-            />
-            <CustomInput
-              label="Truck Size"
-              variant="small"
-              inputType="text"
-              value={truckSize}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setTruckSize(e.target.value)}
-            />
-            <CustomInput
-              label="Weight"
-              variant="small"
-              inputType="text"
-              placeholder="Weight"
-              value={weight}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setWeight(e.target.value)}
+              id="junkName"
+              placeholder="Junk Name"
+              value={junkName}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setJunkName(e.target.value)}
             />
           </div>
 
           <div className="flex justify-between space-x-4">
-            <CustomInput
-              label="Space Occupied"
-              variant="small"
-              inputType="text"
-              placeholder="Enter space occupied"
-              value={spaceOccupied}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setSpaceOccupied(e.target.value)}
-            />
-            <CustomInput
-              label="Material"
-              variant="small"
-              inputType="text"
-              placeholder="Enter material"
-              value={material}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setMaterial(e.target.value)}
-            />
-            <CustomInput
-              label="Pick Up Date"
-              inputType="date"
-              variant="small"
-              value={pickupDate}
-              onChange={(e: ChangeEvent<HTMLInputElement>) => setPickupDate(e.target.value)}
-            />
+            <div className="flex-1">
+              <label htmlFor="typeOfJunk" className="block text-sm font-medium text-gray-700">Type Of Junk</label>
+              <CustomInput
+                variant="small"
+                inputType="text"
+                id="typeOfJunk"
+                value={typeOfJunk}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setTypeOfJunk(e.target.value)}
+              />
+            </div>
+
+            <div className="flex-1">
+              <label htmlFor="truckSize" className="block text-sm font-medium text-gray-700">Truck Size</label>
+              <CustomInput
+                variant="small"
+                inputType="text"
+                id="truckSize"
+                value={truckSize}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setTruckSize(e.target.value)}
+              />
+            </div>
+
+            <div className="flex-1">
+              <label htmlFor="weight" className="block text-sm font-medium text-gray-700">Weight</label>
+              <CustomInput
+                variant="small"
+                inputType="text"
+                id="weight"
+                placeholder="Weight"
+                value={weight}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setWeight(e.target.value)}
+              />
+            </div>
           </div>
 
-          <CustomInput
-            label="Junk Description"
-            inputType="text"
-            placeholder="Describe the junk..."
-            value={junkDescription}
-            onChange={(e: ChangeEvent<HTMLInputElement>) => setJunkDescription(e.target.value)} 
-          />
+          <div className="flex justify-between space-x-4">
+            <div className="flex-1">
+              <label htmlFor="spaceOccupied" className="block text-sm font-medium text-gray-700">Space Occupied</label>
+              <CustomInput
+                variant="small"
+                inputType="text"
+                id="spaceOccupied"
+                placeholder="Enter space occupied"
+                value={spaceOccupied}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setSpaceOccupied(e.target.value)}
+              />
+            </div>
+
+            <div className="flex-1">
+              <label htmlFor="material" className="block text-sm font-medium text-gray-700">Material</label>
+              <CustomInput
+                variant="small"
+                inputType="text"
+                id="material"
+                placeholder="Enter material"
+                value={material}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setMaterial(e.target.value)}
+              />
+            </div>
+
+            <div className="flex-1">
+              <label htmlFor="pickupDate" className="block text-sm font-medium text-gray-700">Pick Up Date</label>
+              <CustomInput
+                inputType="date"
+                variant="small"
+                id="pickupDate"
+                value={pickupDate}
+                onChange={(e: ChangeEvent<HTMLInputElement>) => setPickupDate(e.target.value)}
+              />
+            </div>
+          </div>
+
+          <div>
+            <label htmlFor="junkDescription" className="block text-sm font-medium text-gray-700">Junk Description</label>
+            <CustomInput
+              inputType="text"
+              id="junkDescription"
+              placeholder="Describe the junk..."
+              value={junkDescription}
+              onChange={(e: ChangeEvent<HTMLInputElement>) => setJunkDescription(e.target.value)} 
+            />
+          </div>
           
           <div className="mt-4">
-            <UploadBox
-              label="Upload Junk Image"
-              onChange={(uploadedFile: File) => setFile(uploadedFile)} 
-            />
-          </div>
+  <UploadBox
+    label="Upload Junk Image"
+    onChange={(uploadedFile: File) => setFile(uploadedFile)} 
+  />
+</div>
 
           <Button type="submit" className="w-full h-12 mt-6" variant="mainBlue">
             Submit

@@ -58,15 +58,42 @@ function SignUpForm({ onSubmit, buttonText }: SignUpFormProps) {
       )}
       {error && <p className="text-red-500 mt-2">{error}</p>}
       <div className="space-y-5 w-full mt-6">
-        <CustomInput label="Full Name" inputType="text" value={fullName} onChange={(e) => setFullName(e.target.value)} />
-        <CustomInput label="Email" inputType="text" value={email} onChange={(e) => setEmail(e.target.value)} />
-        <CustomInput label="Phone Number" inputType="number" value={phone} onChange={(e) => setPhone(e.target.value)} />
-        <CustomInput label="Address Line 1" inputType="text" value={addressLine1} onChange={(e) => setAddressLine1(e.target.value)} />
-        <CustomInput label="Address Line 2" inputType="text" value={addressLine2} onChange={(e) => setAddressLine2(e.target.value)} />
-        <CustomInput label="State" inputType="text" value={state} onChange={(e) => setState(e.target.value)} />
-        <CustomInput label="Zip Code" inputType="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} />
-        <CustomInput label="Password" inputType="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-        <CustomInput label="Confirm Password" inputType="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} />
+        <div>
+          <label htmlFor="fullName" className="sr-only">Full Name</label>
+          <CustomInput label="Full Name" inputType="text" value={fullName} onChange={(e) => setFullName(e.target.value)} id="fullName" />
+        </div>
+        <div>
+          <label htmlFor="email" className="sr-only">Email</label>
+          <CustomInput label="Email" inputType="text" value={email} onChange={(e) => setEmail(e.target.value)} id="email" />
+        </div>
+        <div>
+          <label htmlFor="phone" className="sr-only">Phone Number</label>
+          <CustomInput label="Phone Number" inputType="number" value={phone} onChange={(e) => setPhone(e.target.value)} id="phone" />
+        </div>
+        <div>
+          <label htmlFor="addressLine1" className="sr-only">Address Line 1</label>
+          <CustomInput label="Address Line 1" inputType="text" value={addressLine1} onChange={(e) => setAddressLine1(e.target.value)} id="addressLine1" />
+        </div>
+        <div>
+          <label htmlFor="addressLine2" className="sr-only">Address Line 2</label>
+          <CustomInput label="Address Line 2" inputType="text" value={addressLine2} onChange={(e) => setAddressLine2(e.target.value)} id="addressLine2" />
+        </div>
+        <div>
+          <label htmlFor="state" className="sr-only">State</label>
+          <CustomInput label="State" inputType="text" value={state} onChange={(e) => setState(e.target.value)} id="state" />
+        </div>
+        <div>
+          <label htmlFor="zipCode" className="sr-only">Zip Code</label>
+          <CustomInput label="Zip Code" inputType="text" value={zipCode} onChange={(e) => setZipCode(e.target.value)} id="zipCode" />
+        </div>
+        <div>
+          <label htmlFor="password" className="sr-only">Password</label>
+          <CustomInput label="Password" inputType="password" value={password} onChange={(e) => setPassword(e.target.value)} id="password" />
+        </div>
+        <div>
+          <label htmlFor="confirmPassword" className="sr-only">Confirm Password</label>
+          <CustomInput label="Confirm Password" inputType="password" value={confirmPassword} onChange={(e) => setConfirmPassword(e.target.value)} id="confirmPassword" />
+        </div>
         <div className="flex justify-between mt-4">
           <Button className="w-auto" variant="mainBlue" onClick={handleSubmit}>
             {buttonText}

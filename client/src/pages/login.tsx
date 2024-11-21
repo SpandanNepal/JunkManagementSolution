@@ -45,7 +45,7 @@ function Login() {
       if(data.email.includes('ven')){
         navigate('/vendordashboard');
       }
-       else if(data.email.includes('cus')){
+      else if(data.email.includes('cus')){
         navigate('/customerhomepage');
       }
 
@@ -99,15 +99,21 @@ function Login() {
                 onChange={(e) => setData({ ...data, password: e.target.value })}
                 errorMessage={!data.password ? "Password cannot be empty" : ""}
               />
-              <h3 className="text-mainBlue text-sm text-right cursor-pointer mt-2">
+              {/* Updated 'Forgot Password?' link with aria-label */}
+              <a
+                href="#"
+                className="text-mainBlue text-sm text-right cursor-pointer mt-2"
+                aria-label="Forgot your password? Reset it here"
+              >
                 Forgot Password?
-              </h3>
+              </a>
             </div>
 
             {/* Login Button */}
             <Button 
               className="w-full h-12 bg-mainBlue text-white hover:bg-blue-600 mt-6"
               onClick={handleLogin}
+              aria-label="Log in to your account"
             >
               <span className="text-mainWhite">Log in</span>
             </Button>
@@ -115,19 +121,26 @@ function Login() {
             {/* Sign-up Option */}
             <div className="text-center text-sm text-gray-600 mt-4">
               <span className="mr-2">Don’t have an account?</span>
-              <p
+              {/* Updated 'Sign up' link with aria-label */}
+              <a
+                href="#"
                 className="text-mainBlue font-medium cursor-pointer inline border-b-2 border-transparent hover:border-mainBlue"
                 onClick={navigateToSignUp}
+                aria-label="Go to sign up page"
               >
                 Sign up
-              </p>
+              </a>
             </div>
           </div>
         </div>
 
         {/* Right Side (Image) */}
         <div className="w-1/2 p-8 flex justify-center items-center">
-          <img src={loginImage} className="w-[400px] h-[400px] object-contain" alt="Login illustration image" />
+          <img 
+            src={loginImage} 
+            className="w-[400px] h-[400px] object-contain" 
+            alt="Illustration of login process"
+          />
         </div>
       </div>
     );

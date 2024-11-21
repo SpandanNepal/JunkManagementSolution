@@ -44,31 +44,26 @@ const Vendor: React.FC<VendorProps> = ({
   const [notificationMessage, setNotificationMessage] = useState('');
 
   const seeDetails = () => {
-    // Navigate to the vendor profile page and pass the vendorId in the URL
     navigate(`/vendorProfile/${vendorId}`);
   };
 
   const handleSendQuotationRequest = () => {
-    // Create the notification for the vendor
     setNotificationMessage(`Successfully sent to ${name}`);
     addNotification({
-      id: '1', // Use a unique ID
+      id: '1',
       message: `Quotation request sent successfully to ${name}!`,
       sender: 'John Doe',
-      link: '/customerProfile', // Link to customer profile page (you can adjust if needed)
+      link: '/customerProfile',
       type: 'quotation-request',
-      style: 'success', // Custom style for success notification
+      style: 'success',
     });
 
-    // Show success message pop-up
     setShowSuccess(true);
 
-    // Hide the success message after 3 seconds
     setTimeout(() => {
       setShowSuccess(false);
     }, 3000);
 
-    // Proceed with any additional logic (e.g., form submission)
     console.log('Quotation request sent!');
   };
 
@@ -98,7 +93,6 @@ const Vendor: React.FC<VendorProps> = ({
         </Button>
       </div>
 
-      {/* Success Pop-up */}
       {showSuccess && (
         <div className="fixed bottom-10 left-1/2 transform -translate-x-1/2 bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg">
           {notificationMessage}

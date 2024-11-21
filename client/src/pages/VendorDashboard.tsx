@@ -9,10 +9,10 @@ import CustomerQuotationBox from '../components/dashboardHistoryBox';
 Chart.register(ArcElement, CategoryScale, LinearScale, BarElement, Tooltip, Legend);
 
 const VendorDashboard: React.FC = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false); // Modal visibility state
-  const [vendorName, setVendorName] = useState('Vendor Name'); // Vendor name
-  const [vendorProfileLink, setVendorProfileLink] = useState('/vendor-profile'); // Vendor profile link
-  const [customerName, setCustomerName] = useState('Customer Name'); // Customer name
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [vendorName, setVendorName] = useState('Vendor Name');
+  const [vendorProfileLink, setVendorProfileLink] = useState('/vendor-profile');
+  const [customerName, setCustomerName] = useState('Customer Name');
   
   const navigate = useNavigate();
 
@@ -42,11 +42,10 @@ const VendorDashboard: React.FC = () => {
     ],
   };
 
-  // Function to handle the "Accept" button click
   const handleAccept = (customerName: string, vendorProfileLink: string) => {
     setCustomerName(customerName);
     setVendorProfileLink(vendorProfileLink);
-    setIsModalOpen(true); // Open the modal when Accept is clicked
+    setIsModalOpen(true);
   };
 
   const handleReject = (id: number) => {
@@ -54,7 +53,6 @@ const VendorDashboard: React.FC = () => {
     console.log(`Rejected quotation request with ID: ${id}`);
   };
 
-  // Function to navigate to the customer profile page
   const handleViewDetails = (customerId: string) => {
     navigate(`/customerProfile/${customerId}`);
   };
@@ -66,11 +64,11 @@ const VendorDashboard: React.FC = () => {
       <div className="flex justify-between mb-6">
         <div className="w-1/2 p-4 bg-white shadow-md rounded-md mr-4">
           <h2 className="text-lg font-semibold mb-2">Total Quotations Received</h2>
-          <Doughnut data={donutData} />
+          <Doughnut data={donutData} aria-label="Total Quotations Received" />
         </div>
         <div className="w-1/2 p-4 bg-white shadow-md rounded-lg">
           <h2 className="text-lg font-semibold mb-2">Monthly Quotations</h2>
-          <Bar data={barData} />
+          <Bar data={barData} aria-label="Monthly Quotations" />
         </div>
       </div>
 
@@ -83,7 +81,7 @@ const VendorDashboard: React.FC = () => {
               profilePicture={request.profilePicture}
               customerName={request.customerName}
               address={request.address}
-              onAccept={() => handleAccept(request.customerName, '/vendor-profile')} // Pass customer name and vendor profile link to the modal
+              onAccept={() => handleAccept(request.customerName, '/vendor-profile')}
               onReject={() => handleReject(request.id)}
               onViewDetails={() => handleViewDetails(request.customerName)}
             />
@@ -91,11 +89,10 @@ const VendorDashboard: React.FC = () => {
         </div>
       </div>
 
-      {/* Conditionally render the modal */}
       {isModalOpen && (
         <SendQuotationModal
           isOpen={isModalOpen}
-          onClose={() => setIsModalOpen(false)} // Close the modal when triggered
+          onClose={() => setIsModalOpen(false)}
           vendorName={vendorName}
           vendorProfileLink={vendorProfileLink}
           customerName={customerName}

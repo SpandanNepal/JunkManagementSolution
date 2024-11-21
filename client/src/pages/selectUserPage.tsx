@@ -19,12 +19,14 @@ const SelectUser: React.FC = () => {
         <button 
           onClick={() => handleRegister('vendor')} 
           className="border border-mainBlue text-mainBlue py-2 px-4 rounded"
+          aria-label="Register as a Vendor"
         >
           Vendor
         </button>
         <button 
           onClick={() => handleRegister('customer')} 
           className="border border-mainBlue text-mainBlue py-2 px-4 rounded"
+          aria-label="Register as a Customer"
         >
           Customer
         </button>

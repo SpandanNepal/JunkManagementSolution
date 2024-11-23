@@ -14,6 +14,7 @@ const UploadBox: React.FC<UploadBoxProps> = ({ label, onChange }) => {
     <div className="flex flex-col">
       <label className="mb-2 font-medium">{label}</label>
       <input
+        aria-label="input field"
         type="file"
         onChange={handleFileChange}
         className="border p-2 rounded"

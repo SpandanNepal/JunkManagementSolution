@@ -24,7 +24,7 @@ const CustomInput = forwardRef<HTMLInputElement, CustomInputProps>(
 
     return (
       <div className="flex flex-col w-full">
-        {label && <label className="mb-1 text-gray-600">{label}</label>} {/* Label above input */}
+        {label && <label className="mb-1 text-gray-600" aria-label="input field">{label}</label>} {/* Label above input */}
         <input
           ref={ref}
           className={clsxm(

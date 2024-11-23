@@ -35,6 +35,7 @@ const DynamicInput: React.FC<DynamicInputProps> = ({
       <div className="flex space-x-2">
         <input
           type="text"
+          aria-label="input field"
           className="border p-2 rounded"
           placeholder={placeholder}
           value={inputValue}

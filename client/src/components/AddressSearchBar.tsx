@@ -69,6 +69,7 @@ const AddressSearchBar: React.FC<AddressSearchBarProps> = ({ onSearch }) => {
                     <div className="flex mb-4">
                         <input
                             type="text"
+                            aria-label="input field"
                             placeholder="Enter your zipcode"
                             value={address}
                             onChange={handleAddressChange}
@@ -81,6 +82,7 @@ const AddressSearchBar: React.FC<AddressSearchBarProps> = ({ onSearch }) => {
                     </div>
                     <input
                         type="text"
+                        aria-label="input field"
                         placeholder="Enter miles"
                         value={miles}
                         onChange={handleMilesChange}

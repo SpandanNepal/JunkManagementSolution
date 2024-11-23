@@ -40,7 +40,11 @@ const DynamicInput: React.FC<DynamicInputProps> = ({
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
         />
-        <button type="button" onClick={handleAddService} className="p-2 bg-blue-500 text-white rounded">
+        <button
+          type="button"
+          onClick={handleAddService}
+          className="p-2 bg-blue-800 text-white rounded"  // Darker blue for better contrast
+        >
           Add
         </button>
       </div>
@@ -49,12 +53,12 @@ const DynamicInput: React.FC<DynamicInputProps> = ({
           <li key={index} className="flex justify-between items-center">
             {service}
             <button
-              type="button"
-              onClick={() => handleRemoveService(index)}
-              className="text-red-500 p-1"
-            >
-              Remove
-            </button>
+          type="button"
+          onClick={() => handleRemoveService(index)}
+          className="text-red-800 p-1"
+        >
+          Remove
+        </button>
           </li>
         ))}
       </ul>

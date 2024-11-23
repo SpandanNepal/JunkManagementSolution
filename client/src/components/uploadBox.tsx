@@ -12,11 +12,13 @@ const UploadBox: React.FC<UploadBoxProps> = ({ label, onChange }) => {
 
   return (
     <div className="flex flex-col">
-      <label className="mb-2 font-medium">{label}</label>
+      <label htmlFor="fileInput" className="mb-2 font-medium">{label}</label>
       <input
         type="file"
+        id="fileInput"  // Ensure the input has an ID to associate with the label
         onChange={handleFileChange}
         className="border p-2 rounded"
+        aria-label={label}  // Explicit label for screen readers
       />
     </div>
   );

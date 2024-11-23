@@ -49,13 +49,13 @@ const CustomerQuotationBox: React.FC<CustomerQuotationBoxProps> = ({
       <div className="flex space-x-2">
         <Button
           onClick={onAccept}
-          className="bg-green-500 text-white px-4 py-2 rounded-md"
+          className="bg-green-700 text-white px-4 py-2 rounded-md"  // Darker green for better contrast
         >
           Accept
         </Button>
         <Button
           onClick={onReject}
-          className="bg-red-500 text-white px-4 py-2 rounded-md"
+          className="bg-red-700 text-white px-4 py-2 rounded-md"  // Darker red for better contrast
         >
           Reject
         </Button>

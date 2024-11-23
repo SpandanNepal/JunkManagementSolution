@@ -170,8 +170,8 @@ const JunkUploadsList: React.FC = () => {
         {items.slice(0, showMore ? items.length : 3).map((item) => (
           <div key={item.id} className="flex items-center justify-between bg-gray-100 p-4 rounded-md shadow-md border border-gray-300">
             <div>
-              <h3 className="font-semibold text-lg">{item.title}</h3>
-              <p className="text-sm text-gray-500">Quotation Received: {item.quotationReceived}</p>
+              <h3 className="font-semibold text-lg text-gray-700">{item.title}</h3>
+              <p className="text-sm text-gray-600">Quotation Received: {item.quotationReceived}</p>
             </div>
 
             <div className="flex space-x-5">
@@ -196,11 +196,11 @@ const JunkUploadsList: React.FC = () => {
       <div className="mt-4">
         {!showMore && items.length > 3 && (
           <button
-            className="text-blue-500 hover:text-blue-700"
-            onClick={handleShowMore}
-          >
-            See More
-          </button>
+          className="text-blue-800 hover:text-blue-900"
+          onClick={handleShowMore}
+        >
+          See More
+        </button>
         )}
 
         {showMore && (
